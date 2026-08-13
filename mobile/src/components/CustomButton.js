@@ -1,138 +1,139 @@
 import React from "react";
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { theme } from "../theme";
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { darkColors, lightColors, theme, useThemeMode } from "../theme";
 
 export default function CustomButton({
   title,
   onPress,
-  variant = "primary", // primary | secondary | outline | danger
+  variant = "primary", // primary | secondary | outline | ghost
   size = "md", // sm | md | lg
   loading = false,
   disabled = false,
-  icon,
   style,
   textStyle,
+  icon,
 }) {
-  const isOutline = variant === "outline";
-  const isSecondary = variant === "secondary";
-  const isDanger = variant === "danger";
+  const { isDarkMode, themeColors } = useThemeMode();
+  const colors = themeColors || (isDarkMode ? darkColors : lightColors);
+
+  const getVariantStyles = () => {
+    switch (variant) {
+      case "primary":
+        return {
+          backgroundColor: isDarkMode ? "#FFFFFF" : "#000000",
+          borderWidth: 0,
+        };
+      case "secondary":
+        return {
+          backgroundColor: colors.amber,
+          borderWidth: 0,
+        };
+      case "outline":
+        return {
+          backgroundColor: isDarkMode ? "rgba(24, 24, 27, 0.8)" : "#FFFFFF",
+          borderWidth: 1.5,
+          borderColor: colors.border,
+        };
+      case "ghost":
+        return {
+          backgroundColor: "transparent",
+          borderWidth: 0,
+        };
+      default:
+        return {
+          backgroundColor: colors.primary,
+        };
+    }
+  };
+
+  const getTextColor = () => {
+    switch (variant) {
+      case "primary":
+        return isDarkMode ? "#000000" : "#FFFFFF";
+      case "secondary":
+        return "#000000";
+      case "outline":
+        return colors.foreground;
+      case "ghost":
+        return colors.amber;
+      default:
+        return colors.foreground;
+    }
+  };
 
   return (
     <TouchableOpacity
-      activeOpacity={0.7}
+      activeOpacity={0.82}
       onPress={onPress}
       disabled={disabled || loading}
       style={[
-        styles.button,
+        styles.base,
+        getVariantStyles(),
         styles[`size_${size}`],
-        styles[`variant_${variant}`],
-        (disabled || loading) && styles.disabled,
+        disabled && styles.disabled,
         style,
       ]}
     >
       {loading ? (
-        <ActivityIndicator
-          size="small"
-          color={isOutline || isSecondary ? theme.colors.foreground : theme.colors.primaryForeground}
-        />
+        <ActivityIndicator color={getTextColor()} size="small" />
       ) : (
-        <View style={styles.contentRow}>
-          {icon ? <View style={styles.iconContainer}>{icon}</View> : null}
+        <>
+          {icon}
           <Text
             style={[
-              styles.text,
-              styles[`textSize_${size}`],
-              isOutline && styles.textOutline,
-              isSecondary && styles.textSecondary,
-              isDanger && styles.textDanger,
-              variant === "primary" && styles.textPrimary,
+              styles.textBase,
+              { color: getTextColor() },
+              styles[`text_size_${size}`],
+              icon ? { marginLeft: 6 } : null,
               textStyle,
             ]}
           >
             {title}
           </Text>
-        </View>
+        </>
       )}
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  button: {
-    borderRadius: theme.radius.md,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  contentRow: {
+  base: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: 9999, // FULL PILL ROUNDED SHAPE
+    elevation: 2,
   },
-  iconContainer: {
-    marginRight: theme.spacing(1),
-  },
-
-  // Sizes
   size_sm: {
-    paddingVertical: theme.spacing(1),
-    paddingHorizontal: theme.spacing(2),
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 9999,
   },
   size_md: {
-    paddingVertical: theme.spacing(1.5),
-    paddingHorizontal: theme.spacing(3),
+    paddingHorizontal: 22,
+    paddingVertical: 12,
+    borderRadius: 9999,
   },
   size_lg: {
-    paddingVertical: theme.spacing(2),
-    paddingHorizontal: theme.spacing(4),
+    paddingHorizontal: 28,
+    paddingVertical: 16,
+    borderRadius: 9999,
   },
-
-  // Variants
-  variant_primary: {
-    backgroundColor: theme.colors.primary,
-    ...theme.shadows.glow,
-  },
-  variant_secondary: {
-    backgroundColor: theme.colors.elevated,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  variant_outline: {
-    backgroundColor: "transparent",
-    borderWidth: 1,
-    borderColor: theme.colors.borderSubtle,
-  },
-  variant_danger: {
-    backgroundColor: theme.colors.danger,
-  },
-
   disabled: {
     opacity: 0.5,
   },
-
-  // Text
-  text: {
-    fontWeight: "600",
+  textBase: {
+    fontWeight: "800",
+    textAlign: "center",
+    letterSpacing: -0.2,
   },
-  textSize_sm: {
-    fontSize: 13,
+  text_size_sm: {
+    fontSize: 12,
   },
-  textSize_md: {
+  text_size_md: {
+    fontSize: 14,
+  },
+  text_size_lg: {
     fontSize: 15,
-  },
-  textSize_lg: {
-    fontSize: 16,
-  },
-
-  textPrimary: {
-    color: "#000000",
-  },
-  textSecondary: {
-    color: theme.colors.foreground,
-  },
-  textOutline: {
-    color: theme.colors.foreground,
-  },
-  textDanger: {
-    color: "#ffffff",
   },
 });

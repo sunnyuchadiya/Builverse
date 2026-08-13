@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Join BuildVerse</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#1c1b1b",
+                    "surface-container-high": "#e8e8e6",
+                    "surface-tint": "#5f5e5e",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#653e00",
+                    "on-secondary-fixed": "#2a1700",
+                    "error": "#ba1a1a",
+                    "surface": "#f9f9f7",
+                    "inverse-surface": "#2f3130",
+                    "surface-bright": "#f9f9f7",
+                    "on-primary-fixed-variant": "#474646",
+                    "background": "#f9f9f7",
+                    "outline": "#747878",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed": "#1c1b1b",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1c1b",
+                    "tertiary": "#000000",
+                    "surface-variant": "#e2e3e1",
+                    "surface-container-highest": "#e2e3e1",
+                    "primary": "#000000",
+                    "on-tertiary-fixed-variant": "#464747",
+                    "surface-dim": "#dadad8",
+                    "surface-container": "#eeeeec",
+                    "on-surface-variant": "#444748",
+                    "outline-variant": "#c4c7c7",
+                    "inverse-primary": "#c8c6c5",
+                    "tertiary-container": "#1b1c1c",
+                    "secondary-fixed-dim": "#ffb95f",
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#f4f4f2",
+                    "secondary-container": "#fea619",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed-dim": "#c7c6c6",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#684000",
+                    "secondary-fixed": "#ffddb8",
+                    "primary-fixed-dim": "#c8c6c5",
+                    "tertiary-fixed": "#e4e2e2",
+                    "primary-fixed": "#e5e2e1",
+                    "inverse-on-surface": "#f1f1ef",
+                    "secondary": "#855300",
+                    "on-primary-container": "#858383",
+                    "on-background": "#1a1c1b",
+                    "on-tertiary-container": "#848484",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "container-padding": "24px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "stack-lg": "24px",
+                    "section-gap": "32px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["11px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-md": ["13px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-md": ["15px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "1.4", "letterSpacing": "-0.02em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-transition {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .interest-chip.active {
+            background-color: #111111;
+            color: #ffffff;
+            border-color: #111111;
+        }
+        body {
+            background-color: #FAFAF8;
+        }
+        .premium-shadow {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col font-body-md text-on-surface">
+<!-- Suppressed Shell: BottomNavBar and TopAppBar are excluded as per "Destination Rule" (Transactional Flow) -->
+<main class="flex-grow flex items-center justify-center px-container-padding py-12 relative overflow-hidden">
+<!-- Atmospheric Background Element -->
+<div class="absolute top-0 right-0 -mr-20 -mt-20 opacity-10 pointer-events-none">
+<div class="w-[600px] h-[600px] bg-cover bg-center rounded-full filter blur-3xl" data-alt="A sophisticated abstract architectural render of glass and steel structures, captured in soft morning light with a clean Scandinavian aesthetic. The composition features sharp angles and deep contrasts of black and white, embodying a sense of precision and premium craftsmanship. Soft gradients transition from crisp whites to deep shadows, creating a calm yet powerful atmosphere for a developer-centric digital space." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCRPKHI3fKGpA6Hplwz_-ZxfxU4KM2Okz-5jWYSybuZfMOxqM4gcTiTAdkNQbt4hv22yb9LDUe-Y1G3FrZniw42BwCjCqOQ0ERsx-TiesXf3SNJizwlqUnL7iQlhYHklLODzHfWZrgCIy8IWK_vPX5hhOKfQCNOSFAuFRk_8N5tCmyjqgS63SMeyoJvJ56yEDkutMa5HnBg-pKLkV9kqI648rUFZCntHXN4hdf9rvNZUVyZyf3r4gUxNeCJiMQ7Qj2qxt0Ui3kZFQ')"></div>
+</div>
+<div class="w-full max-w-[520px] relative z-10">
+<!-- Header Section -->
+<div class="text-center mb-10">
+<h1 class="font-headline-lg text-headline-lg mb-2 text-primary">BuildVerse</h1>
+<p class="font-body-md text-on-surface-variant">The architecture of your developer journey begins here.</p>
+</div>
+<!-- Main Multi-step Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-[24px] p-8 md:p-12 premium-shadow">
+<!-- Progress Indicator -->
+<div class="flex gap-2 mb-10">
+<div class="h-1 flex-grow bg-primary rounded-full transition-all duration-500" id="bar-1"></div>
+<div class="h-1 flex-grow bg-surface-container-highest rounded-full transition-all duration-500" id="bar-2"></div>
+</div>
+<form id="onboarding-form" onsubmit="return false;">
+<!-- Step 1: Identity -->
+<div class="step-transition" id="step-1">
+<div class="mb-8">
+<h2 class="font-headline-md text-headline-md mb-2">Create your identity</h2>
+<p class="font-label-md text-on-surface-variant">Step 1 of 2</p>
+</div>
+<div class="space-y-6">
+<div class="space-y-2">
+<label class="font-label-md text-on-surface block">Full Name</label>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-white focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-outline" placeholder="John Doe" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-on-surface block">Email Address</label>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-white focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-outline" placeholder="john@company.com" type="email"/>
+</div>
+<div class="space-y-2 relative">
+<label class="font-label-md text-on-surface block">Password</label>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-white focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-outline" placeholder="Min. 8 characters" type="password"/>
+<span class="material-symbols-outlined absolute right-4 top-[42px] text-on-surface-variant cursor-pointer" style="font-size: 20px;">visibility</span>
+</div>
+</div>
+<button class="w-full mt-10 bg-primary text-on-primary font-label-md py-4 rounded-full hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2" onclick="goToStep(2)" type="button">
+                            Continue
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Step 2: Interests -->
+<div class="step-transition hidden opacity-0 translate-x-8" id="step-2">
+<div class="mb-8">
+<h2 class="font-headline-md text-headline-md mb-2">Primary Interests</h2>
+<p class="font-label-md text-on-surface-variant">Tailor your workspace experience</p>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-10">
+<button class="interest-chip group flex flex-col items-center justify-center p-4 rounded-2xl border border-outline-variant hover:border-primary transition-all gap-2 text-center" onclick="toggleInterest(this)" type="button">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">code</span>
+<span class="font-label-md">Frontend</span>
+</button>
+<button class="interest-chip group flex flex-col items-center justify-center p-4 rounded-2xl border border-outline-variant hover:border-primary transition-all gap-2 text-center" onclick="toggleInterest(this)" type="button">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">terminal</span>
+<span class="font-label-md">Backend</span>
+</button>
+<button class="interest-chip group flex flex-col items-center justify-center p-4 rounded-2xl border border-outline-variant hover:border-primary transition-all gap-2 text-center" onclick="toggleInterest(this)" type="button">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">smartphone</span>
+<span class="font-label-md">Mobile</span>
+</button>
+<button class="interest-chip group flex flex-col items-center justify-center p-4 rounded-2xl border border-outline-variant hover:border-primary transition-all gap-2 text-center" onclick="toggleInterest(this)" type="button">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">database</span>
+<span class="font-label-md">Data Science</span>
+</button>
+<button class="interest-chip group flex flex-col items-center justify-center p-4 rounded-2xl border border-outline-variant hover:border-primary transition-all gap-2 text-center" onclick="toggleInterest(this)" type="button">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">shield</span>
+<span class="font-label-md">Security</span>
+</button>
+<button class="interest-chip group flex flex-col items-center justify-center p-4 rounded-2xl border border-outline-variant hover:border-primary transition-all gap-2 text-center" onclick="toggleInterest(this)" type="button">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">cloud</span>
+<span class="font-label-md">DevOps</span>
+</button>
+</div>
+<div class="flex gap-4">
+<button class="w-1/3 bg-white border border-outline-variant text-primary font-label-md py-4 rounded-full hover:bg-surface-container-low active:scale-[0.98] transition-all" onclick="goToStep(1)" type="button">
+                                Back
+                            </button>
+<button class="w-2/3 bg-primary text-on-primary font-label-md py-4 rounded-full hover:opacity-90 active:scale-[0.98] transition-all" type="submit">
+                                Join BuildVerse
+                            </button>
+</div>
+</div>
+</form>
+</div>
+<!-- Footer Links -->
+<div class="mt-8 text-center">
+<p class="font-label-md text-on-surface-variant">
+                    Already have an account? 
+                    <a class="text-primary font-bold hover:underline" href="#">Log in</a>
+</p>
+<div class="mt-6 flex justify-center gap-6 text-on-surface-variant font-label-sm">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function goToStep(step) {
+            const step1 = document.getElementById('step-1');
+            const step2 = document.getElementById('step-2');
+            const bar1 = document.getElementById('bar-1');
+            const bar2 = document.getElementById('bar-2');
+
+            if (step === 2) {
+                step1.classList.add('opacity-0', '-translate-x-8');
+                setTimeout(() => {
+                    step1.classList.add('hidden');
+                    step2.classList.remove('hidden');
+                    setTimeout(() => {
+                        step2.classList.remove('opacity-0', 'translate-x-8');
+                    }, 50);
+                }, 300);
+                bar2.classList.replace('bg-surface-container-highest', 'bg-primary');
+            } else {
+                step2.classList.add('opacity-0', 'translate-x-8');
+                setTimeout(() => {
+                    step2.classList.add('hidden');
+                    step1.classList.remove('hidden');
+                    setTimeout(() => {
+                        step1.classList.remove('opacity-0', '-translate-x-8');
+                    }, 50);
+                }, 300);
+                bar2.classList.replace('bg-primary', 'bg-surface-container-highest');
+            }
+        }
+
+        function toggleInterest(btn) {
+            btn.classList.toggle('active');
+            const icon = btn.querySelector('.material-symbols-outlined');
+            if (btn.classList.contains('active')) {
+                icon.classList.replace('text-primary', 'text-white');
+            } else {
+                icon.classList.replace('text-white', 'text-primary');
+            }
+        }
+
+        // Form Submission visual feedback
+        document.getElementById('onboarding-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Joining...';
+            setTimeout(() => {
+                submitBtn.innerHTML = 'Welcome aboard!';
+                submitBtn.classList.replace('bg-primary', 'bg-green-600');
+            }, 1500);
+        });
+    </script>
+</body></html>

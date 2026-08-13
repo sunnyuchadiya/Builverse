@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BuildVerse | Developer Profile</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e3e1",
+                    "background": "#f9f9f7",
+                    "secondary-container": "#fea619",
+                    "primary-fixed-dim": "#c8c6c5",
+                    "on-tertiary-fixed-variant": "#464747",
+                    "inverse-on-surface": "#f1f1ef",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#e4e2e2",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#858383",
+                    "on-surface": "#1a1c1b",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#1c1b1b",
+                    "surface-container-low": "#f4f4f2",
+                    "secondary-fixed": "#ffddb8",
+                    "tertiary-fixed-dim": "#c7c6c6",
+                    "inverse-primary": "#c8c6c5",
+                    "on-secondary-fixed": "#2a1700",
+                    "on-error-container": "#93000a",
+                    "surface-container": "#eeeeec",
+                    "surface-container-highest": "#e2e3e1",
+                    "on-surface-variant": "#444748",
+                    "surface-container-high": "#e8e8e6",
+                    "surface-bright": "#f9f9f7",
+                    "on-secondary-fixed-variant": "#653e00",
+                    "inverse-surface": "#2f3130",
+                    "tertiary-container": "#1b1c1c",
+                    "outline": "#747878",
+                    "on-primary-fixed": "#1c1b1b",
+                    "tertiary": "#000000",
+                    "surface-tint": "#5f5e5e",
+                    "surface-dim": "#dadad8",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#474646",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb95f",
+                    "secondary": "#855300",
+                    "outline-variant": "#c4c7c7",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "on-background": "#1a1c1b",
+                    "on-tertiary-container": "#848484",
+                    "surface": "#f9f9f7",
+                    "primary-fixed": "#e5e2e1",
+                    "primary": "#000000",
+                    "on-secondary-container": "#684000",
+                    "accent-amber": "#F59E0B"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "container-padding": "24px",
+                    "section-gap": "32px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "stack-lg": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["15px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "1.4", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                    "label-sm": ["11px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                    "label-md": ["13px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #FAFAF8;
+            font-family: 'Inter', sans-serif;
+            color: #1a1c1b;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .natural-shadow {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+        }
+        .premium-border {
+            border: 1px solid #ECECEC;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- Top Navigation Bar (Shared Component) -->
+<header class="bg-surface dark:bg-surface-dim w-full top-0 sticky border-b border-outline-variant dark:border-on-tertiary-fixed-variant z-40">
+<div class="flex justify-between items-center px-container-padding py-4 w-full max-w-[1280px] mx-auto">
+<div class="flex items-center gap-stack-md">
+<span class="font-headline-md text-headline-md font-semibold text-primary dark:text-on-primary-fixed">BuildVerse</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-2 rounded-lg font-label-md text-label-md" href="#">Home</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-2 rounded-lg font-label-md text-label-md" href="#">Projects</a>
+<a class="text-primary font-bold px-3 py-2 rounded-lg font-label-md text-label-md" href="#">Profile</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer active:opacity-70">search</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden premium-border">
+<img class="w-full h-full object-cover" data-alt="A minimalist professional portrait of a software developer in a high-key lighting studio, wearing a charcoal grey turtleneck. The background is a clean, off-white Scandinavian aesthetic with soft natural light. The photograph is captured in a high-fidelity editorial style with shallow depth of field, emphasizing a calm and professional demeanor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAxcdV0YnwjYKHgKUkHJPFiFHML6B7kORZKXzYnWMwTO8y44SFchI6xjwH--95nRpA3U-hVJASmSS4rCCn03wqWgqZf_K7M6Aqf10sJwuOPTWEclYU-MMDayYKJIp6ur71SDvRQ3ZTlBgaieU1mAfIIKbLeTe0Xdf6rzlbjYy7VX0Cp9kdonWz_oqmaAnqsrfb8rlgbu2DSlWfNhSUjHQYTImVhkIIkg-U-nrKHLur2hkVgTflJO3AICUieuSqQA6d4gygNHVBxw"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-[1280px] mx-auto px-container-padding pt-section-gap">
+<!-- Profile Header Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-stack-lg mb-section-gap">
+<div class="flex flex-col md:flex-row items-center md:items-end gap-stack-lg">
+<div class="relative">
+<div class="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden natural-shadow premium-border bg-white">
+<img class="w-full h-full object-cover" data-alt="A minimalist professional portrait of a software developer in a high-key lighting studio, wearing a charcoal grey turtleneck. The background is a clean, off-white Scandinavian aesthetic with soft natural light. The photograph is captured in a high-fidelity editorial style with shallow depth of field, emphasizing a calm and professional demeanor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKQLvvXWH3zyxRb7HNbt5G7zd6-hTHlYok46ITQG3O72vNglENt_STu0bWfm5myzsB6gTIY-6gP_IFgIIXaYn47HD-HBKE3BW6uogyxN_VCJ2KmorbqAyQSVBMv1HVOKC1n9riWmjUzL60PgKKj3-gkKsc2At_x_dL1Opue4fdbqcHwwGmCgmisCSx5X6jZVcfBQ0wFfxA8XWcEBRbUcshj9KawibVS1nNqN0spTGc8DcbTjpfPQSZKgE-f0UaxsChtqwfiBH66g"/>
+</div>
+<div class="absolute -bottom-2 -right-2 w-10 h-10 bg-accent-amber rounded-full flex items-center justify-center text-white border-4 border-background">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="text-center md:text-left">
+<h1 class="font-headline-lg text-headline-lg md:text-display tracking-tight">Elias Thorne</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Senior Systems Architect • Stockholm, SE</p>
+</div>
+</div>
+<div class="flex gap-stack-md justify-center">
+<button class="bg-[#111111] text-white font-label-md text-label-md px-6 py-3 rounded-full hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                    Edit Profile
+                </button>
+<button class="bg-white text-primary font-label-md text-label-md px-6 py-3 rounded-full border border-[#ECECEC] hover:bg-[#F5F5F5] transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+</div>
+</section>
+<!-- Bento Grid: Stats & Tech Stack -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-section-gap">
+<!-- Stats Section -->
+<div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-gutter">
+<div class="bg-white p-stack-lg rounded-2xl premium-border natural-shadow flex flex-col justify-between aspect-square sm:aspect-auto sm:h-48">
+<span class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">Projects</span>
+<div class="flex flex-col">
+<span class="font-display text-display leading-none">24</span>
+<span class="text-accent-amber font-label-sm text-label-sm mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +3 this month
+                        </span>
+</div>
+</div>
+<div class="bg-white p-stack-lg rounded-2xl premium-border natural-shadow flex flex-col justify-between aspect-square sm:aspect-auto sm:h-48">
+<span class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">Commits</span>
+<div class="flex flex-col">
+<span class="font-display text-display leading-none">1.2k</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm mt-2">Past year total</span>
+</div>
+</div>
+<div class="bg-white p-stack-lg rounded-2xl premium-border natural-shadow flex flex-col justify-between aspect-square sm:aspect-auto sm:h-48">
+<span class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">Ranking</span>
+<div class="flex flex-col">
+<span class="font-display text-display leading-none">Top 1%</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm mt-2">Global contributor</span>
+</div>
+</div>
+</div>
+<!-- Tech Stack Section -->
+<div class="lg:col-span-5 bg-white p-stack-lg rounded-2xl premium-border natural-shadow">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md">Tech Stack</h3>
+<span class="material-symbols-outlined text-on-surface-variant">terminal</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-4 py-2 bg-accent-amber/10 text-accent-amber border border-accent-amber/20 rounded-full font-label-md text-label-md">Rust</span>
+<span class="px-4 py-2 bg-accent-amber/10 text-accent-amber border border-accent-amber/20 rounded-full font-label-md text-label-md">TypeScript</span>
+<span class="px-4 py-2 bg-accent-amber/10 text-accent-amber border border-accent-amber/20 rounded-full font-label-md text-label-md">WebAssembly</span>
+<span class="px-4 py-2 bg-accent-amber/10 text-accent-amber border border-accent-amber/20 rounded-full font-label-md text-label-md">Go</span>
+<span class="px-4 py-2 bg-accent-amber/10 text-accent-amber border border-accent-amber/20 rounded-full font-label-md text-label-md">PostgreSQL</span>
+<span class="px-4 py-2 bg-accent-amber/10 text-accent-amber border border-accent-amber/20 rounded-full font-label-md text-label-md">Kubernetes</span>
+<span class="px-4 py-2 bg-accent-amber/10 text-accent-amber border border-accent-amber/20 rounded-full font-label-md text-label-md">AWS</span>
+<span class="px-4 py-2 bg-accent-amber/10 text-accent-amber border border-accent-amber/20 rounded-full font-label-md text-label-md">Next.js</span>
+</div>
+</div>
+</div>
+<!-- Featured Projects Section -->
+<section class="mb-section-gap">
+<div class="flex justify-between items-end mb-6">
+<div>
+<h2 class="font-headline-lg text-headline-lg">Featured Projects</h2>
+<p class="text-on-surface-variant font-body-md text-body-md">Selected engineering work and open-source contributions.</p>
+</div>
+<a class="text-primary font-label-md text-label-md flex items-center gap-1 hover:underline" href="#">
+                    View all
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Project Card 1 -->
+<div class="group relative bg-white rounded-2xl overflow-hidden premium-border natural-shadow transition-transform duration-500 hover:-translate-y-2">
+<div class="h-64 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A high-end, clean user interface design for a developer productivity tool. The screen shows a dark mode code editor with syntax highlighting in soft purples and ambers, nested within a sleek, minimalist browser window. The background is an abstract mesh of soft gradients in grey and white, emphasizing a professional and modern software aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUR4mG8KWXiEuk0vp_mIIjFr7GwlNQ8XnK7tEugolnyH5TCAI1Hbh-wfBLftG8JgXDzJC8w9TCyuHUDgBB1t2FUrBLeXJzh7trTeiun0pBXdRZxhevVa2ULmmUVOdOCod88EMFk3R9UNY36EZ0Jto-Ns8JU_kz7SUnfCjLzsGimOLpkk0m1zzRZcVMZVJAaNemSAP9cCfWdjKzc6V6KW3TXFHh7REC2sNH6kLqzLXZF6NZSJYTDJoqKWAaOJ7-yhAqHUdc2b1Ugg"/>
+</div>
+<div class="p-stack-lg">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md">Lumina Engine</h3>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">star</span>
+<span class="font-label-md text-label-md">2.4k</span>
+</div>
+</div>
+<p class="text-on-surface-variant font-body-md text-body-md mb-6">A high-performance rendering engine built for the modern web using WebGPU and Rust.</p>
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-accent-amber"></span> Rust
+                            </span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Updated 2 days ago</span>
+</div>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="group relative bg-white rounded-2xl overflow-hidden premium-border natural-shadow transition-transform duration-500 hover:-translate-y-2">
+<div class="h-64 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A sleek, minimalist data visualization dashboard featuring complex node-link diagrams and real-time performance metrics. The aesthetic is inspired by premium finance and technical tools, using a palette of whites, light greys, and subtle amber highlights. The UI is clean, with plenty of white space and crisp, high-fidelity typography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0GXyh7UJvAz8w9KlH8V2zrct7_gKBkEnYmCDEsJqiKH-CFWW0LHsgJe5HQoaIquhEiZaTH2IXHzeK9fwDwS9UtXZgI04TBD3TRRg0XN3pLUsiMaBOGQrKYd5u6hCoWhv7ihhOeJlemoaxSEdv4Heh9ljE04Bxcq0s5bUUaYULWQXo0OVONb3JOGf4VeMp3M6CWqcp0TTSK3CNpD1BCc19FhYa1pmB4LsdTQYIlrSTrOkN3UnAE90eMCbzs0zJArdclGTN0OitLw"/>
+</div>
+<div class="p-stack-lg">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md">Synapse CLI</h3>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">star</span>
+<span class="font-label-md text-label-md">842</span>
+</div>
+</div>
+<p class="text-on-surface-variant font-body-md text-body-md mb-6">An intelligent command-line interface for managing distributed microservices with ease.</p>
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-primary"></span> Go
+                            </span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Updated 1 week ago</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Portfolio Links Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-section-gap">
+<a class="bg-white p-stack-lg rounded-2xl premium-border natural-shadow flex items-center justify-between group hover:bg-surface-container-low transition-colors" href="#">
+<div class="flex items-center gap-stack-md">
+<div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div>
+<p class="font-label-md text-label-md font-bold">Curriculum Vitae</p>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Download PDF</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</a>
+<a class="bg-white p-stack-lg rounded-2xl premium-border natural-shadow flex items-center justify-between group hover:bg-surface-container-low transition-colors" href="#">
+<div class="flex items-center gap-stack-md">
+<div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">language</span>
+</div>
+<div>
+<p class="font-label-md text-label-md font-bold">Personal Portfolio</p>
+<p class="text-on-surface-variant font-label-sm text-label-sm">eliasthorne.dev</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</a>
+<a class="bg-white p-stack-lg rounded-2xl premium-border natural-shadow flex items-center justify-between group hover:bg-surface-container-low transition-colors" href="#">
+<div class="flex items-center gap-stack-md">
+<div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">alternate_email</span>
+</div>
+<div>
+<p class="font-label-md text-label-md font-bold">Connect</p>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Inquiries &amp; Networking</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</a>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Shared Component - Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface dark:bg-surface-dim border-t border-outline-variant dark:border-on-tertiary-fixed-variant shadow-sm flex justify-around items-center px-4 pt-2 pb-6">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant active:scale-95 transition-all">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant active:scale-95 transition-all">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-label-sm text-label-sm">Projects</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant active:scale-95 transition-all">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Groups</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant active:scale-95 transition-all">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm">Chat</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed-dim font-semibold active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</div>
+</nav>
+<!-- Micro-interaction Script -->
+<script>
+        document.querySelectorAll('.natural-shadow').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.boxShadow = '0 15px 45px rgba(0, 0, 0, 0.08)';
+                card.style.borderColor = '#111111';
+                card.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.04)';
+                card.style.borderColor = '#ECECEC';
+            });
+        });
+    </script>
+</body></html>

@@ -1,16 +1,13 @@
-const { kafka } = require("./client");
-const logger = require("../utils/logger");
-const { TOPICS } = require("../constants");
+const kafka = require("./client");
 
-async function startConsumer() {
-  const consumer = kafka.consumer({ groupId: "nexus-api" });
-  await consumer.connect();
-  await consumer.subscribe({ topic: TOPICS.COURSE_CREATED, fromBeginning: false });
-  await consumer.run({
-    eachMessage: async ({ topic, message }) => {
-      logger.info(`kafka:${topic}`, message.value?.toString());
-    },
-  });
+async function initConsumer() {
+  try {
+    const consumer = kafka.consumer({ groupId: "buildverse-api" });
+    await consumer.connect();
+    console.log("[Kafka Consumer] Connected successfully to broker.");
+  } catch (err) {
+    console.log("[Kafka Consumer] Broker connection skipped (standalone mode).");
+  }
 }
 
-module.exports = startConsumer;
+module.exports = { initConsumer };

@@ -68,7 +68,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
         style={{ boxShadow: "var(--shadow-card)" }}
       >
         <Link to="/" className="font-display text-lg font-bold">
-          nexus<span className="text-primary">.</span>
+          buildverse<span className="text-primary">.</span>
         </Link>
         <h1 className="mt-6 text-3xl font-bold">
           {isRegister ? "Create your account" : "Welcome back"}

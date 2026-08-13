@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e2e3e1",
+                        "background": "#f9f9f7",
+                        "secondary-container": "#fea619",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "on-tertiary-fixed-variant": "#464747",
+                        "inverse-on-surface": "#f1f1ef",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#e4e2e2",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#858383",
+                        "on-surface": "#1a1c1b",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#1c1b1b",
+                        "surface-container-low": "#f4f4f2",
+                        "secondary-fixed": "#ffddb8",
+                        "tertiary-fixed-dim": "#c7c6c6",
+                        "inverse-primary": "#c8c6c5",
+                        "on-secondary-fixed": "#2a1700",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#eeeeec",
+                        "surface-container-highest": "#e2e3e1",
+                        "on-surface-variant": "#444748",
+                        "surface-container-high": "#e8e8e6",
+                        "surface-bright": "#f9f9f7",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "inverse-surface": "#2f3130",
+                        "tertiary-container": "#1b1c1c",
+                        "outline": "#747878",
+                        "on-primary-fixed": "#1c1b1b",
+                        "tertiary": "#000000",
+                        "surface-tint": "#5f5e5e",
+                        "surface-dim": "#dadad8",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "secondary": "#855300",
+                        "outline-variant": "#c4c7c7",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "on-background": "#1a1c1b",
+                        "on-tertiary-container": "#848484",
+                        "surface": "#f9f9f7",
+                        "primary-fixed": "#e5e2e1",
+                        "primary": "#000000",
+                        "on-secondary-container": "#684000"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "container-padding": "24px",
+                        "section-gap": "32px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "stack-lg": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["15px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "1.4", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                        "label-sm": ["11px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                        "label-md": ["13px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #FAFAF8;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .message-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .message-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .message-scroll::-webkit-scrollbar-thumb {
+            background: #ECECEC;
+            border-radius: 10px;
+        }
+        .chat-container {
+            height: calc(100vh - 144px);
+        }
+        @media (max-width: 768px) {
+            .chat-container {
+                height: calc(100vh - 160px);
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim w-full top-0 sticky z-40 border-b border-outline-variant dark:border-on-tertiary-fixed-variant flex justify-between items-center px-container-padding py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a high-end software architect with a minimalist aesthetic. The lighting is soft and directional, highlighting clean facial features against a neutral, off-white background. The style is contemporary, editorial, and conveys a sense of calm expertise and precision, fitting for a premium developer tool interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWEKeYX-xMsSgkjvR1lB-je7WgLLwUMWiVs-jb3xU7svuY_cCeUgnXElCS3vYx6vaG-VdBLm56pj6qo5NSw-68QCAreYTeqg0lD_SkXNBQZHW8-IognpURzNgvqU0bTH8lYN62zmuIP0ooG1iNPD6oPdEC7mjTIVsdBb_UUWxE4zyVo8KsIYzDpJXZSH9k1hSgCapzoGiu7AvtrhGJ2jxTsOuE-NpO-0ojuqGYEwRsQF8hDI8wstLO1gOiTQ4p1em0xGZgS9D-vw"/>
+</div>
+<h1 class="text-headline-md font-headline-md font-semibold text-primary dark:text-on-primary-fixed">BuildVerse</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors px-2 py-1 rounded" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors px-2 py-1 rounded" href="#">Projects</a>
+<a class="font-label-md text-label-md text-primary font-bold transition-colors px-2 py-1 rounded" href="#">Chat</a>
+</nav>
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed cursor-pointer active:opacity-70">search</span>
+</div>
+</header>
+<main class="max-w-[1280px] mx-auto px-container-padding py-8">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 chat-container">
+<!-- Conversation List (Bento-style sidebar) -->
+<aside class="md:col-span-4 lg:col-span-3 bg-surface-container-lowest border border-[#ECECEC] rounded-xl overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+<div class="p-6 border-b border-[#ECECEC] flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md font-semibold">Messages</h2>
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-primary text-white hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto message-scroll">
+<!-- Active Conversation -->
+<div class="p-4 flex items-center gap-4 bg-surface-container-high cursor-pointer transition-colors border-l-2 border-primary">
+<div class="relative">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a female software engineer in a clean, minimalist setting. She wears professional glasses and has a focused, intelligent expression. The background is a soft-focus office with natural light and a Scandinavian design palette of whites and light woods. The image quality is crisp and high-fidelity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9fWRI15xRodPKfkrFBysixInUrvfdLXwdVeEpgFEfdVYKiggJ5wtRxU4jsyWp1oRNHYvxF01oTHi17yfLfKvkTaIfJpnaEuRAJho4ciOw_kKrW9kdoGvKPu6poSKvLSDRa8-XGYNboa_OfMW_rjY8K1-ti_mym9gRpt9CroWCnmB26YbVsbm_jHaMG3mviD-KZWV4FWA8g3UCQ94tiShYWOlC17nFnY0LP_vIb3koLN4DCA9iqFfuOFjwuJAh8i1m2egToAM8sQ"/>
+</div>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h3 class="font-label-md text-label-md font-bold truncate">Sarah Chen</h3>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">Now</span>
+</div>
+<p class="text-label-md text-on-surface-variant truncate font-medium">The refactor for the auth module is live.</p>
+</div>
+</div>
+<!-- Inactive Conversations -->
+<div class="p-4 flex items-center gap-4 hover:bg-surface-container-low cursor-pointer transition-colors">
+<div class="relative">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A portrait of a male developer with a minimalist aesthetic, wearing a simple dark crew-neck shirt. He is set against a clean grey background with soft, professional lighting. The image evokes a sense of high-end corporate minimalism and technical reliability, mirroring a sophisticated digital workplace environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXfMGibVQ2abFXSM7aLvrPmvnUIdFHRiizbe3bgAeXEPBiB3o5XFU6pV5jgcrTVxpux1Ws1pP5Ec8o4WPlqz4wRrW1bhvnCihD4u_SHpU9IfcX_YcBGJ4iI62ShFl-h-uLYd8c48P0i94-pIEF_-7nYQjpgySwrDkn85MHvBmewKS9ujokwZWAhiT0QNNp2TgEoZRnkAXaK6OcHi9NsYNCpvUl_p0ngrUq9Tfu7j8r8mZsZj543grD-sm0idr58tdCzpk6LhnrHA"/>
+</div>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-on-surface-variant border-2 border-white rounded-full"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h3 class="font-label-md text-label-md font-medium truncate">Marcus Thorne</h3>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">12m</span>
+</div>
+<p class="text-label-md text-on-surface-variant truncate opacity-70">Did you check the PR #442?</p>
+</div>
+</div>
+<div class="p-4 flex items-center gap-4 hover:bg-surface-container-low cursor-pointer transition-colors">
+<div class="relative">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Professional avatar photo of a creative technologist. The lighting is dramatic but soft, using a cool color palette with subtle hints of amber. The individual looks calm and inspired. The background is a minimalist studio space with clean lines and high-quality textures. High resolution and editorial quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5lFzb84smuE1oDrwhsxzqLvCVYw1YxJ4g2qQjQfbpnKb-L7DphlIgb_wZ8AaBHcuzry8wmTznnc2QlahkQBDIQP5aeAf_NEpPW7_1X8Oe9B1ufNN-EDtz2gS7ZwcN6W-dzMLDPmc3uPVe-vY-FBNl2AC8aOat_GKBXwaRSSXoAFK9AGqBORPb3TdqA-KV2AVN3YJNrjGN5ft5dKV_2ovWXJplGi3KSI92X4GmFytyrw7lTyALiuoYwooeeQ5PnrbDeO5QbvHQUQ"/>
+</div>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h3 class="font-label-md text-label-md font-medium truncate">Elena Rodriguez</h3>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">2h</span>
+</div>
+<p class="text-label-md text-on-surface-variant truncate opacity-70">The new design tokens are looking great.</p>
+</div>
+</div>
+<div class="p-4 flex items-center gap-4 hover:bg-surface-container-low cursor-pointer transition-colors opacity-60">
+<div class="relative">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A minimalist portrait of a backend architect with a clean-shaven look and neutral expression. The style is bright and airy, following a white and grey color scheme. The composition is centered and balanced, suitable for a premium tech platform's user interface. High-end photography with deep depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD3pUW2QVDhA0j7mDV_vwtLa3DPk-k_FsZCdeXCNYUjeo8HUYWNJ7hMGRvZOBq_K5LQnc6TxZq932AedO7ulDLaxqDyw_AW3Lao9Xr0D_XQErAlEhGWUWj4ZsrnP2nzdbJ6dAnokkWhdU3lHcUYy655cDj5CK2ms-lB5y6wN_ME-0FNHyrMzDe6KyNzJR29t8jB4XEwzrMVHpmKyugIxsTyhiPxrS1ZTHrSWhbK4Q19-H3r8q9wD6c6cHYDmWWBF29L2iSDd5MGQ"/>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h3 class="font-label-md text-label-md font-medium truncate">Jordan Vance</h3>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">Yesterday</span>
+</div>
+<p class="text-label-md text-on-surface-variant truncate opacity-70">Sent you the API documentation.</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Chat View -->
+<section class="md:col-span-8 lg:col-span-9 bg-surface-container-lowest border border-[#ECECEC] rounded-xl flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden">
+<!-- Chat Header -->
+<div class="p-6 border-b border-[#ECECEC] flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of Sarah Chen, a female software engineer, for a chat interface. Minimalist, modern, and high-end aesthetic. Clear focus on facial features with a soft, warm lighting setup against a neutral background. High fidelity and professional digital photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe_A4L5Q3nL7SrhQc1-7bKsKzEWmXC98V35g0YGp1VjFzRuhZg2mq3Ab1qVLuE-8tFlQpI8Qy_eAFGCI_qLg7a5lxHapmWZFnjYSd_c6SXfG9MktYAQqkkp_Cpt57m08GObTupN8ZrqD1yGLGgLKZrBzoFmNjyERjfMWixdW6_Edk3tImsdF-RB8lgsj6ahbx0KWJLIwHv-iTAz6SdPG4W-x-5dMVIKui4dhSydxjVN8r4Kg74Cauo7E8KyYweFU16BKQ7SiX7EA"/>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md font-semibold">Sarah Chen</h3>
+<p class="text-label-sm text-on-surface-variant flex items-center gap-1.5">
+<span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                Online now
+                            </p>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">videocam</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">call</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Messages Area -->
+<div class="flex-1 p-6 overflow-y-auto message-scroll flex flex-col gap-6 bg-background/30">
+<div class="text-center">
+<span class="px-3 py-1 bg-surface-container-high text-on-surface-variant text-[10px] font-bold uppercase tracking-widest rounded-full">Today</span>
+</div>
+<!-- Received Message -->
+<div class="flex gap-4 max-w-[80%]">
+<div class="w-8 h-8 rounded-full overflow-hidden mt-1 shrink-0">
+<img class="w-full h-full object-cover" data-alt="A small avatar image of a female engineer, professional lighting, neutral background, minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBj1vJJC4CnaIaPeqMDn-Nnnh-oCJjCJVFRCoMz_Ix3APd9b153w4Xpb0Rd5-saiSa2YI4dQzCWvrUeYPS3UA4okiCYhMbdBGND5c7_YS17LkR_8RKI149z74D_rENIxP2hznlOTPN4PMslLx3wQZWuoq5ssKi0qI_KuSmzgdtbjWXWebIViKxnF7DEBvtTzwINH56V5vCxpkqjRLwTs5YQHUk1YhpVFvW8sod5jg5jKacQQq8ei9dqGm6Z2i12raRcU6qEF5abmg"/>
+</div>
+<div class="flex flex-col gap-1">
+<div class="bg-[#F5F5F5] p-4 rounded-2xl rounded-tl-none border border-[#ECECEC]">
+<p class="font-body-md text-body-md">Hey! I've just pushed the initial architecture for the new data visualization dashboard. Mind taking a look?</p>
+</div>
+<span class="text-[10px] text-on-surface-variant ml-1">10:24 AM</span>
+</div>
+</div>
+<!-- Sent Message -->
+<div class="flex gap-4 max-w-[80%] self-end flex-row-reverse">
+<div class="flex flex-col items-end gap-1">
+<div class="bg-primary text-white p-4 rounded-2xl rounded-tr-none">
+<p class="font-body-md text-body-md">On it. I noticed the D3 integrations are looking much cleaner now. Is the responsive wrapper already in place?</p>
+</div>
+<span class="text-[10px] text-on-surface-variant mr-1">10:26 AM</span>
+</div>
+</div>
+<!-- Received Message -->
+<div class="flex gap-4 max-w-[80%]">
+<div class="w-8 h-8 rounded-full overflow-hidden mt-1 shrink-0">
+<img class="w-full h-full object-cover" data-alt="Avatar of a female engineer, clean studio light, modern style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-FX4XdLHYbyjIL5kZ-rZAMrwuPl3XnD8-jtx2LnvjbCscE8PjKeXV5rc6l3CBD1TibDYOkhn9WLB8Zlyn2Yfuv3DuceuBaXtbP9UaFvvQh-qA0HKXhhMmkn4pystB8RLEoAxQHAheN94Hjbq77S6EFBs8YbcKOzdnL2BIqlqP4ESfoDT25J9LebjD4hDuqDr0ANTsYipEP3uMamA0fVIC9n-p0lGNjCO-oDDJ5NqGgxVMp436DkT3DPF8BoCaRxuTXrPgejLB3A"/>
+</div>
+<div class="flex flex-col gap-1">
+<div class="bg-[#F5F5F5] p-4 rounded-2xl rounded-tl-none border border-[#ECECEC]">
+<p class="font-body-md text-body-md">Yes, exactly. I used the new container queries plugin. It should handle the bento grid transitions perfectly across all viewports.</p>
+</div>
+<div class="bg-[#F5F5F5] p-4 rounded-2xl rounded-tl-none border border-[#ECECEC] mt-1">
+<p class="font-body-md text-body-md">Check out the /preview-branch, I've added some documentation for the new API endpoints too.</p>
+</div>
+<span class="text-[10px] text-on-surface-variant ml-1">10:28 AM</span>
+</div>
+</div>
+<!-- Sent Message -->
+<div class="flex gap-4 max-w-[80%] self-end flex-row-reverse">
+<div class="flex flex-col items-end gap-1">
+<div class="bg-primary text-white p-4 rounded-2xl rounded-tr-none">
+<p class="font-body-md text-body-md">Perfect. I'll review it within the hour. Great work on the speed optimizations.</p>
+</div>
+<span class="text-[10px] text-on-surface-variant mr-1">10:30 AM</span>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-6 border-t border-[#ECECEC] bg-white">
+<div class="flex items-end gap-4 bg-background border border-[#ECECEC] rounded-2xl p-2 pl-4 focus-within:border-primary transition-all shadow-sm">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors mb-0.5">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<textarea class="flex-1 bg-transparent border-none focus:ring-0 py-3 text-body-md font-body-md resize-none max-h-32 message-scroll" id="message-input" placeholder="Type your message..." rows="1"></textarea>
+<div class="flex items-center gap-1 pr-2 pb-1.5">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">sentiment_satisfied</span>
+</button>
+<button class="bg-primary text-white p-2 rounded-xl hover:opacity-90 active:scale-95 transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">send</span>
+</button>
+</div>
+</div>
+<div class="flex justify-between items-center mt-3 px-1">
+<p class="text-[10px] text-on-surface-variant font-medium uppercase tracking-widest">BuildVerse Desktop v2.4</p>
+<p class="text-[10px] text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">keyboard_command_key</span> + Enter to send
+                        </p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Visible on Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pt-2 pb-6 bg-surface dark:bg-surface-dim border-t border-outline-variant dark:border-on-tertiary-fixed-variant shadow-sm">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-primary transition-all active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-primary transition-all active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-label-sm text-label-sm">Projects</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-primary transition-all active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Groups</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed-dim font-semibold active:scale-95 transition-transform duration-200 cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">forum</span>
+<span class="font-label-sm text-label-sm">Chat</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-primary transition-all active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</div>
+</nav>
+<script>
+        // Auto-expand textarea
+        const textarea = document.getElementById('message-input');
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        // Simple send interaction
+        const sendBtn = textarea.nextElementSibling.querySelector('button:last-child');
+        sendBtn.addEventListener('click', () => {
+            if (textarea.value.trim() !== '') {
+                textarea.value = '';
+                textarea.style.height = 'auto';
+            }
+        });
+
+        // Mobile list toggle (demo purpose)
+        // If we were building a full app, we'd handle the mobile view of list vs conversation
+    </script>
+</body></html>

@@ -1,137 +1,115 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { theme } from "../theme";
+import GlassCard from "./GlassCard";
+import { darkColors, lightColors, theme, useThemeMode } from "../theme";
 
 export default function IssueItem({ issue, onToggle }) {
-  const isHigh = issue.priority === "High";
-  const isMedium = issue.priority === "Medium";
+  const { isDarkMode, themeColors } = useThemeMode();
+  const colors = themeColors || (isDarkMode ? darkColors : lightColors);
+
+  const isResolved = issue.status === "resolved" || issue.isDone;
+
+  const getPriorityBadgeStyle = () => {
+    switch ((issue.priority || "").toLowerCase()) {
+      case "high":
+        return { bg: "rgba(239, 68, 68, 0.15)", text: colors.danger };
+      case "medium":
+        return { bg: "rgba(245, 158, 11, 0.15)", text: colors.amber };
+      default:
+        return { bg: "rgba(16, 185, 129, 0.15)", text: colors.success };
+    }
+  };
+
+  const badgeStyle = getPriorityBadgeStyle();
 
   return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      onPress={() => onToggle(issue.id)}
-      style={[
-        styles.container,
-        issue.resolved && styles.containerResolved,
-      ]}
-    >
-      <View style={styles.leftRow}>
-        <View
-          style={[
-            styles.checkbox,
-            issue.resolved && styles.checkboxResolved,
-          ]}
-        >
-          {issue.resolved && (
-            <Ionicons name="checkmark" size={14} color="#000000" />
-          )}
+    <GlassCard style={[styles.card, { backgroundColor: colors.card, borderColor: colors.cardBorder }]}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={() => onToggle && onToggle(issue.id, issue.status)}
+        style={styles.container}
+      >
+        <View style={[styles.checkbox, isResolved && { backgroundColor: colors.success, borderColor: colors.success }]}>
+          {isResolved && <Ionicons name="checkmark" size={14} color="#FFFFFF" />}
         </View>
 
-        <Text
-          style={[
-            styles.title,
-            issue.resolved && styles.titleResolved,
-          ]}
-          numberOfLines={2}
-        >
-          {issue.title}
-        </Text>
-      </View>
+        <View style={styles.content}>
+          <Text style={[styles.title, { color: colors.foreground }, isResolved && styles.resolvedTitle]}>
+            {issue.title}
+          </Text>
+          <Text style={[styles.description, { color: colors.muted }]}>{issue.description || issue.desc}</Text>
 
-      <View
-        style={[
-          styles.priorityBadge,
-          isHigh && styles.priorityHigh,
-          isMedium && styles.priorityMedium,
-          !isHigh && !isMedium && styles.priorityLow,
-        ]}
-      >
-        <Text
-          style={[
-            styles.priorityText,
-            isHigh && styles.priorityTextHigh,
-            isMedium && styles.priorityTextMedium,
-            !isHigh && !isMedium && styles.priorityTextLow,
-          ]}
-        >
-          {issue.priority || "Low"}
-        </Text>
-      </View>
-    </TouchableOpacity>
+          <View style={styles.metaRow}>
+            <View style={[styles.badge, { backgroundColor: badgeStyle.bg }]}>
+              <Text style={[styles.badgeText, { color: badgeStyle.text }]}>
+                {issue.priority ? issue.priority.toUpperCase() : "NORMAL"}
+              </Text>
+            </View>
+
+            <Text style={[styles.statusText, { color: isResolved ? colors.success : colors.subtle }]}>
+              {isResolved ? "Resolved" : "Open"}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    </GlassCard>
   );
 }
 
 const styles = StyleSheet.create({
+  card: {
+    marginBottom: theme.spacing(1.2),
+    padding: theme.spacing(1.8),
+  },
   container: {
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: theme.colors.card,
-    borderRadius: theme.radius.md,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    padding: theme.spacing(1.8),
-    marginVertical: theme.spacing(0.6),
-  },
-  containerResolved: {
-    opacity: 0.6,
-    backgroundColor: "rgba(24, 24, 27, 0.5)",
-  },
-  leftRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    flex: 1,
-    marginRight: theme.spacing(1),
+    alignItems: "flex-start",
   },
   checkbox: {
-    width: 20,
-    height: 20,
+    width: 22,
+    height: 22,
     borderRadius: 6,
-    borderWidth: 1.5,
-    borderColor: theme.colors.muted,
+    borderWidth: 2,
+    borderColor: "#9CA3AF",
     alignItems: "center",
     justifyContent: "center",
     marginRight: theme.spacing(1.5),
+    marginTop: 2,
   },
-  checkboxResolved: {
-    backgroundColor: theme.colors.primary,
-    borderColor: theme.colors.primary,
-  },
-  title: {
-    fontSize: 14,
-    color: theme.colors.foreground,
+  content: {
     flex: 1,
   },
-  titleResolved: {
+  title: {
+    ...theme.typography.h3,
+    fontSize: 15,
+  },
+  resolvedTitle: {
     textDecorationLine: "line-through",
-    color: theme.colors.muted,
+    opacity: 0.6,
   },
-  priorityBadge: {
-    paddingHorizontal: theme.spacing(1.2),
-    paddingVertical: theme.spacing(0.4),
-    borderRadius: theme.radius.pill,
+  description: {
+    ...theme.typography.body,
+    fontSize: 12,
+    marginTop: 2,
+    marginBottom: theme.spacing(1),
   },
-  priorityHigh: {
-    backgroundColor: "rgba(239, 68, 68, 0.15)",
+  metaRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
-  priorityMedium: {
-    backgroundColor: "rgba(245, 158, 11, 0.15)",
+  badge: {
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 4,
   },
-  priorityLow: {
-    backgroundColor: "rgba(113, 113, 122, 0.15)",
+  badgeText: {
+    fontSize: 10,
+    fontWeight: "700",
   },
-  priorityText: {
+  statusText: {
     fontSize: 11,
     fontWeight: "600",
-  },
-  priorityTextHigh: {
-    color: theme.colors.danger,
-  },
-  priorityTextMedium: {
-    color: theme.colors.warning,
-  },
-  priorityTextLow: {
-    color: theme.colors.subtle,
   },
 });

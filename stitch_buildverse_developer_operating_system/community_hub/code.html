@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BuildVerse Community</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#1c1b1b",
+                        "surface-container-high": "#e8e8e6",
+                        "surface-tint": "#5f5e5e",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "on-secondary-fixed": "#2a1700",
+                        "error": "#ba1a1a",
+                        "surface": "#f9f9f7",
+                        "inverse-surface": "#2f3130",
+                        "surface-bright": "#f9f9f7",
+                        "on-primary-fixed-variant": "#474646",
+                        "background": "#f9f9f7",
+                        "outline": "#747878",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#1c1b1b",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1a1c1b",
+                        "tertiary": "#000000",
+                        "surface-variant": "#e2e3e1",
+                        "surface-container-highest": "#e2e3e1",
+                        "primary": "#000000",
+                        "on-tertiary-fixed-variant": "#464747",
+                        "surface-dim": "#dadad8",
+                        "surface-container": "#eeeeec",
+                        "on-surface-variant": "#444748",
+                        "outline-variant": "#c4c7c7",
+                        "inverse-primary": "#c8c6c5",
+                        "tertiary-container": "#1b1c1c",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f4f4f2",
+                        "secondary-container": "#fea619",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#c7c6c6",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#684000",
+                        "secondary-fixed": "#ffddb8",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "tertiary-fixed": "#e4e2e2",
+                        "primary-fixed": "#e5e2e1",
+                        "inverse-on-surface": "#f1f1ef",
+                        "secondary": "#855300",
+                        "on-primary-container": "#858383",
+                        "on-background": "#1a1c1b",
+                        "on-tertiary-container": "#848484",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "container-padding": "24px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "stack-lg": "24px",
+                        "section-gap": "32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-md": ["13px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "body-md": ["15px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "1.4", "letterSpacing": "-0.02em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .card-shadow { box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface dark:bg-surface-dim border-b border-outline-variant z-40">
+<div class="flex justify-between items-center px-container-padding py-4 w-full max-w-[1280px] mx-auto">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a young software architect with a minimalist background. The lighting is soft and natural, reflecting a high-end editorial tech aesthetic. The composition is focused on a clean, modern look with neutral tones, perfectly fitting a premium developer platform like BuildVerse." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvJMwNJxj9SZYDV58a8yrnS6Lys_ZuQj-qnYIq9-nBF8DCHMjE93pB4S2KOkVnEmIE_tlEd1o8vVLwiwlV3bpIlKpQFs7-7C0Tf1APvq3IhW1KdHF6ri7Ub0iwaI5oUaY53scJwiMHvLvRlIxcjKZDh1siEfDqrqSh25WmtQLGKvyL8UKUT9S0v6w9Mmib3uSvsWklw2PdIjYg4q2J2G35tsi_UlBpuD8zmcv8jjgnf-hLF25VFND3F429z94jcFY5Lkd-VG_-qQ"/>
+</div>
+<h1 class="text-headline-md font-headline-md font-semibold text-primary dark:text-on-primary-fixed">BuildVerse</h1>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<nav class="flex gap-6">
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-2 rounded-lg" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-2 rounded-lg" href="#">Projects</a>
+<a class="font-label-md text-label-md text-primary font-bold px-3 py-2 rounded-lg" href="#">Groups</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-2 rounded-lg" href="#">Chat</a>
+</nav>
+<div class="cursor-pointer active:opacity-70 p-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary">search</span>
+</div>
+</div>
+<button class="md:hidden cursor-pointer active:opacity-70 p-2">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+</div>
+</header>
+<main class="max-w-[1280px] mx-auto px-container-padding py-8 mb-24 md:mb-12">
+<!-- Hero Section -->
+<section class="mb-section-gap">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+<div class="max-w-2xl">
+<h2 class="font-display text-display text-primary mb-4 tracking-tighter">Engineers are better, together.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Connect with local chapters, technology-specific squads, and global open-source collectives.</p>
+</div>
+<div>
+<button class="bg-primary text-on-primary px-8 py-4 rounded-full font-label-md text-label-md hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                        Start a Group
+                    </button>
+</div>
+</div>
+<!-- Search & Trending Bar -->
+<div class="bg-white border border-[#ECECEC] rounded-2xl p-4 md:p-6 card-shadow flex flex-col md:flex-row items-center gap-6">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface border border-[#ECECEC] rounded-xl focus:border-primary focus:ring-0 transition-all font-body-md" placeholder="Search by tech stack, city, or name..." type="text"/>
+</div>
+<div class="flex items-center gap-3 overflow-x-auto no-scrollbar w-full md:w-auto">
+<span class="font-label-sm text-label-sm text-outline whitespace-nowrap uppercase">Trending:</span>
+<a class="px-4 py-1.5 bg-surface-container rounded-full font-label-sm text-label-sm hover:bg-surface-container-high transition-colors" href="#">#Rust</a>
+<a class="px-4 py-1.5 bg-surface-container rounded-full font-label-sm text-label-sm hover:bg-surface-container-high transition-colors" href="#">#NextJS</a>
+<a class="px-4 py-1.5 bg-surface-container rounded-full font-label-sm text-label-sm hover:bg-surface-container-high transition-colors" href="#">#Web3</a>
+<a class="px-4 py-1.5 bg-surface-container rounded-full font-label-sm text-label-sm hover:bg-surface-container-high transition-colors" href="#">#AI</a>
+</div>
+</div>
+</section>
+<!-- Main Content: Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Featured Group (Large Editorial Card) -->
+<div class="md:col-span-8 bg-white border border-[#ECECEC] rounded-[32px] overflow-hidden card-shadow group">
+<div class="relative h-64 md:h-80 w-full overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A cinematic, high-contrast photograph of a group of diverse developers collaborating in a minimalist, glass-walled office space in Delhi. The sunset light filters through the window, creating warm highlights and deep shadows. The atmosphere is focused and professional, capturing a 'React Delhi' community meetup. The style is sophisticated and high-end editorial." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCiMa3csaszCxGS9hP46f7kHzGHQ1vqQxniOOOgyqzulyX-LgdV4MDCTBbCFeCyDryPMRRQr-oIdp0msu0d-_e0Neaz_v-INUmNta20QqJEuCyy2KRCghOZMloKCQX_OT7bvXpXZBcScWL85V3AJmkat42rw0I_Tvvxsx92vg3TMMBBjfLYwkbrjhUmUqa_AsFIILyXfUle4_emb6iD5GHNxkufsaPkVzZX-iItjosCkFVyMz8DqrQVrsmSxbO1A8wX2n7EsjBvg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm mb-2 inline-block">Featured Chapter</span>
+<h3 class="font-headline-lg text-headline-lg">React Delhi</h3>
+</div>
+</div>
+<div class="p-stack-lg">
+<div class="flex flex-wrap items-center justify-between gap-6">
+<div class="flex items-center gap-8">
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase mb-1">Members</p>
+<p class="font-headline-md text-headline-md font-bold">4.2k</p>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase mb-1">Active Projects</p>
+<p class="font-headline-md text-headline-md font-bold">128</p>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase mb-1">Next Meetup</p>
+<p class="font-headline-md text-headline-md font-bold">Oct 24</p>
+</div>
+</div>
+<button class="px-6 py-3 border border-[#ECECEC] rounded-full font-label-md text-label-md hover:bg-surface-container-high transition-all">Join Chapter</button>
+</div>
+</div>
+</div>
+<!-- Stats Card -->
+<div class="md:col-span-4 bg-primary-container text-white rounded-[32px] p-stack-lg flex flex-col justify-between card-shadow">
+<div>
+<h3 class="font-headline-md text-headline-md mb-2">BuildVerse Insights</h3>
+<p class="font-body-md text-on-primary-container opacity-80">Community health across all nodes.</p>
+</div>
+<div class="space-y-6 py-8">
+<div class="flex justify-between items-end border-b border-white/10 pb-4">
+<span class="font-body-md text-on-primary-container">Global Groups</span>
+<span class="text-3xl font-bold">842</span>
+</div>
+<div class="flex justify-between items-end border-b border-white/10 pb-4">
+<span class="font-body-md text-on-primary-container">Active Contributors</span>
+<span class="text-3xl font-bold">12k+</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="font-body-md text-on-primary-container">Commits/Day</span>
+<span class="text-3xl font-bold text-secondary-fixed">2.4k</span>
+</div>
+</div>
+<div class="bg-white/5 p-4 rounded-2xl flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-primary-container leading-tight">Trending up 14% since last month.</span>
+</div>
+</div>
+<!-- Small Group Cards -->
+<div class="md:col-span-4 bg-white border border-[#ECECEC] rounded-[32px] p-stack-lg card-shadow hover:translate-y-[-4px] transition-all cursor-pointer group">
+<div class="w-16 h-16 rounded-2xl bg-surface-container flex items-center justify-center mb-6 group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-3xl text-primary group-hover:text-white transition-colors">memory</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Rust Systems</h4>
+<p class="font-body-md text-on-surface-variant mb-6 line-clamp-2">Low-level optimization, memory safety enthusiasts, and WASM builders.</p>
+<div class="flex items-center justify-between border-t border-[#ECECEC] pt-4">
+<span class="font-label-sm text-label-sm text-outline">862 Members</span>
+<span class="material-symbols-outlined text-outline">arrow_forward</span>
+</div>
+</div>
+<div class="md:col-span-4 bg-white border border-[#ECECEC] rounded-[32px] p-stack-lg card-shadow hover:translate-y-[-4px] transition-all cursor-pointer group">
+<div class="w-16 h-16 rounded-2xl bg-surface-container flex items-center justify-center mb-6 group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-3xl text-primary group-hover:text-white transition-colors">terminal</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Go Collective</h4>
+<p class="font-body-md text-on-surface-variant mb-6 line-clamp-2">Cloud-native development, microservices, and distributed systems architecture.</p>
+<div class="flex items-center justify-between border-t border-[#ECECEC] pt-4">
+<span class="font-label-sm text-label-sm text-outline">1.2k Members</span>
+<span class="material-symbols-outlined text-outline">arrow_forward</span>
+</div>
+</div>
+<div class="md:col-span-4 bg-white border border-[#ECECEC] rounded-[32px] p-stack-lg card-shadow hover:translate-y-[-4px] transition-all cursor-pointer group">
+<div class="w-16 h-16 rounded-2xl bg-surface-container flex items-center justify-center mb-6 group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-3xl text-primary group-hover:text-white transition-colors">science</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">AI Ethics Node</h4>
+<p class="font-body-md text-on-surface-variant mb-6 line-clamp-2">Discussion and building of responsible AI, model transparency, and safety protocols.</p>
+<div class="flex items-center justify-between border-t border-[#ECECEC] pt-4">
+<span class="font-label-sm text-label-sm text-outline">540 Members</span>
+<span class="material-symbols-outlined text-outline">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Latest Discussions / List Layout Section -->
+<section class="mt-section-gap">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-lg text-headline-lg">Trending Conversations</h2>
+<a class="font-label-md text-label-md text-primary flex items-center gap-1 group" href="#">
+                    View Forum 
+                    <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">east</span>
+</a>
+</div>
+<div class="space-y-4">
+<div class="bg-white border border-[#ECECEC] rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 card-shadow hover:border-primary transition-colors">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary">forum</span>
+</div>
+<div>
+<h5 class="font-headline-md text-headline-md text-[18px] mb-1">State management in Next.js 14: Is Jotai the new standard?</h5>
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Started in #Frontend</span>
+<span class="font-label-sm text-label-sm text-outline">24 replies • 12 mins ago</span>
+</div>
+</div>
+</div>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-surface overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Avatar of a male developer with glasses and a beard, studio lighting, clean minimal background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBguKDN2tYH9xrX2M5zdkkIdSf1ovu702AOaEzho0Y56XkyyDzBZizotHWLCDdLdo365Xah_ykPQa_kB2iNvFAIShtYVQ8ElJpAHWWvSDoRKJm5Wphc35qRsLVxaqvLLaifR2pf6sLWbBiM5SOhomEkZAF6Hwh_62zGbmw_KmTdhEH7YpOCv4e2rAa4HlFwZf1s2vbV2QaA9o_aPn-IMoJAk6wSdTcIQ4qvyjJq5yJFyumWHM4re7sKkwDoJ3ljmHdnomNJHXNUYQ"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-surface overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Avatar of a female software engineer, professional and modern, minimalist tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCy5GrkCZAINuaG2SGIqwsvSINuaXwNBJEPQF-3PW3hVeSp30hKVTc888qx358VPhKRuz99Lb-1aClF7lB2BNu4TvJWXGQRvGtbLEl02Nl_aXabFbX4mk3E6d4rdjyiKioAKTQwWRFV5Q4pKwBnD_aKfn90rypQ_IVbobtoBKDkNUStnoD96nA2P1TiNCgLxBkHAd2n2wyBSCt2gARX2S93_1fLbhz7fXovZ3cM9suhk_V3g-2duODwC7cLaQKLBDpSKtMYh6szuQ"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-surface overflow-hidden flex items-center justify-center bg-surface-container-high text-[10px] font-bold">+12</div>
+</div>
+</div>
+<div class="bg-white border border-[#ECECEC] rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 card-shadow hover:border-primary transition-colors">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary">rocket_launch</span>
+</div>
+<div>
+<h5 class="font-headline-md text-headline-md text-[18px] mb-1">Building a Rust-based DB engine: Seeking contributors.</h5>
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Started in #RustSystems</span>
+<span class="font-label-sm text-label-sm text-outline">8 replies • 1 hour ago</span>
+</div>
+</div>
+</div>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-surface overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a young tech innovator, high-end photography, minimalist neutral background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAFqn_QuMkXiwMTSIimKdQVPNJ6ZqJtf7FtPhUuxDjJQxj95wyAciUuVSRZT5UzOz5ZjoQGQqN4tT5ScVhG8bcvq1-4uG0MwmfNgqNb0KoDDZjhKk1vb9_WxEp5br0Naus2v_wfNkikU4qcIxq_-cOCsQbkMAlqt1CIhzt5FxgVWWjTYTBj-cIGozrzTN_fbFuhyGTIH4FFE1qkkgF0Q_AZZWNA6315DPr1_NyFpXBzqwbipTsKui_YGSp4gnWe6-0HIzdY2VQyA"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-surface overflow-hidden flex items-center justify-center bg-surface-container-high text-[10px] font-bold">+4</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface dark:bg-surface-dim border-t border-outline-variant px-4 pt-2 pb-6 flex justify-around items-center shadow-sm">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-label-sm text-label-sm mt-1">Projects</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-semibold transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="font-label-sm text-label-sm mt-1">Groups</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm mt-1">Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm mt-1">Profile</span>
+</a>
+</nav>
+<!-- Floating Action Button (Only on Mobile for Community Context) -->
+<button class="md:hidden fixed right-6 bottom-24 bg-primary text-on-primary w-14 h-14 rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+</body></html>

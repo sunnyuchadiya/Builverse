@@ -1,14 +1,13 @@
-# Nexus Backend
+# BuildVerse Backend API (Node.js + Express + MongoDB)
 
-Express + MongoDB + Redis + Kafka + Socket.IO + BullMQ service.
+Production API service for BuildVerse Developer Operating System.
 
+## Stack & Features
+- **Node.js + Express.js**: REST API server running on port `5000`.
+- **MongoDB + Mongoose**: Database models for Users, Projects, Issues, and Community Channels.
+- **Docker Ready**: Pre-configured with `Dockerfile` and `docker-compose.yml`.
+
+## Run via Docker
 ```bash
-cp .env.example .env
-docker compose up --build
+docker-compose up --build
 ```
-
-- API: http://localhost:5000/api/v1
-- Docs: http://localhost:5000/docs
-- Health: http://localhost:5000/health
-
-Layering: `routes → middlewares/validations → controllers → services → repositories → models`.

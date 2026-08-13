@@ -1,128 +1,138 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 import GlassCard from "./GlassCard";
-import { theme } from "../theme";
+import { darkColors, lightColors, theme, useThemeMode } from "../theme";
 
-export default function ProjectCard({ project, onToggleStatus }) {
-  const isCompleted = project.progress >= 100 || project.status === "completed";
+export default function ProjectCard({ project, onPress }) {
+  const navigation = useNavigation();
+  const { isDarkMode, themeColors } = useThemeMode();
+  const colors = themeColors || (isDarkMode ? darkColors : lightColors);
+
+  const isCompleted =
+    project.status === "Completed" ||
+    project.status === "completed" ||
+    project.progress === 100 ||
+    project.tag === "Completed";
+
+  const handlePress = () => {
+    if (onPress) {
+      onPress();
+    } else {
+      navigation.navigate("ProjectDetailsScreen", { project });
+    }
+  };
+
+  const currentProgress = isCompleted ? 100 : project.progress || 0;
 
   return (
-    <GlassCard style={styles.card}>
-      <View style={styles.headerRow}>
-        <Text style={styles.title} numberOfLines={1}>
-          {project.name}
-        </Text>
-        <View
-          style={[
-            styles.tagBadge,
-            isCompleted ? styles.tagCompleted : styles.tagActive,
-          ]}
-        >
-          <Text
-            style={[
-              styles.tagText,
-              isCompleted ? styles.tagTextCompleted : styles.tagTextActive,
-            ]}
-          >
-            {project.tag || (isCompleted ? "Completed" : "Active")}
-          </Text>
-        </View>
-      </View>
-
-      <Text style={styles.description} numberOfLines={2}>
-        {project.description}
-      </Text>
-
-      <View style={styles.progressContainer}>
-        <View style={styles.progressHeader}>
-          <Text style={styles.progressLabel}>Progress</Text>
-          <Text style={styles.progressValue}>{project.progress}%</Text>
-        </View>
-        <View style={styles.progressBarBackground}>
+    <TouchableOpacity activeOpacity={0.7} onPress={handlePress}>
+      <GlassCard elevated style={[styles.card, { backgroundColor: colors.card, borderColor: colors.cardBorder }]}>
+        <View style={styles.header}>
+          <Text style={[styles.title, { color: colors.foreground }]}>{project.name}</Text>
           <View
             style={[
-              styles.progressBarFill,
-              { width: `${Math.min(100, Math.max(0, project.progress))}%` },
-              isCompleted && { backgroundColor: theme.colors.primary },
+              styles.tagBadge,
+              { backgroundColor: isCompleted ? "rgba(16, 185, 129, 0.15)" : colors.elevated },
             ]}
-          />
+          >
+            <Text style={[styles.tagText, { color: isCompleted ? colors.success : colors.amber }]}>
+              {isCompleted ? "Completed ✓" : project.tag || "Active"}
+            </Text>
+          </View>
         </View>
-      </View>
-    </GlassCard>
+
+        <Text style={[styles.description, { color: colors.muted }]} numberOfLines={2}>
+          {project.description}
+        </Text>
+
+        <View style={styles.footer}>
+          <View style={styles.progressContainer}>
+            <View style={styles.progressLabelRow}>
+              <Text style={[styles.progressText, { color: colors.muted }]}>
+                {isCompleted ? "Status" : "Progress"}
+              </Text>
+              <Text style={[styles.progressPercent, { color: isCompleted ? colors.success : colors.foreground }]}>
+                {isCompleted ? "100% (Completed)" : `${currentProgress}%`}
+              </Text>
+            </View>
+            <View style={[styles.track, { backgroundColor: colors.elevated }]}>
+              <View
+                style={[
+                  styles.fill,
+                  {
+                    width: `${currentProgress}%`,
+                    backgroundColor: isCompleted ? colors.success : colors.amber,
+                  },
+                ]}
+              />
+            </View>
+          </View>
+
+          <Ionicons name="chevron-forward" size={18} color={colors.subtle} style={{ marginLeft: 12 }} />
+        </View>
+      </GlassCard>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    padding: theme.spacing(2.5),
-    marginVertical: theme.spacing(1),
+    marginBottom: theme.spacing(1.8),
   },
-  headerRow: {
+  header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: theme.spacing(1),
   },
   title: {
-    ...theme.font.h3,
+    ...theme.typography.h3,
+    fontSize: 16,
     flex: 1,
-    marginRight: theme.spacing(1),
   },
   tagBadge: {
-    paddingHorizontal: theme.spacing(1.5),
-    paddingVertical: theme.spacing(0.5),
-    borderRadius: theme.radius.pill,
-    borderWidth: 1,
-  },
-  tagActive: {
-    backgroundColor: "rgba(99, 102, 241, 0.12)",
-    borderColor: "rgba(99, 102, 241, 0.3)",
-  },
-  tagCompleted: {
-    backgroundColor: "rgba(16, 185, 129, 0.12)",
-    borderColor: "rgba(16, 185, 129, 0.3)",
+    paddingHorizontal: theme.spacing(1.2),
+    paddingVertical: theme.spacing(0.4),
+    borderRadius: theme.radius.sm,
   },
   tagText: {
     fontSize: 11,
-    fontWeight: "600",
-  },
-  tagTextActive: {
-    color: theme.colors.indigo,
-  },
-  tagTextCompleted: {
-    color: theme.colors.primary,
+    fontWeight: "700",
   },
   description: {
-    ...theme.font.subtitle,
+    ...theme.typography.body,
     fontSize: 13,
     marginBottom: theme.spacing(2),
   },
-  progressContainer: {
-    marginTop: theme.spacing(0.5),
+  footer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
-  progressHeader: {
+  progressContainer: {
+    flex: 1,
+  },
+  progressLabelRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: theme.spacing(0.8),
+    marginBottom: 4,
   },
-  progressLabel: {
-    fontSize: 12,
-    color: theme.colors.muted,
+  progressText: {
+    fontSize: 11,
   },
-  progressValue: {
-    fontSize: 12,
+  progressPercent: {
+    fontSize: 11,
     fontWeight: "700",
-    color: theme.colors.foreground,
   },
-  progressBarBackground: {
+  track: {
     height: 6,
-    backgroundColor: theme.colors.elevated,
-    borderRadius: theme.radius.pill,
+    borderRadius: 3,
     overflow: "hidden",
   },
-  progressBarFill: {
+  fill: {
     height: "100%",
-    backgroundColor: theme.colors.indigo,
-    borderRadius: theme.radius.pill,
+    borderRadius: 3,
   },
 });

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Phoenix | BuildVerse</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#1c1b1b",
+                    "surface-container-high": "#e8e8e6",
+                    "surface-tint": "#5f5e5e",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#653e00",
+                    "on-secondary-fixed": "#2a1700",
+                    "error": "#ba1a1a",
+                    "surface": "#f9f9f7",
+                    "inverse-surface": "#2f3130",
+                    "surface-bright": "#f9f9f7",
+                    "on-primary-fixed-variant": "#474646",
+                    "background": "#f9f9f7",
+                    "outline": "#747878",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed": "#1c1b1b",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1c1b",
+                    "tertiary": "#000000",
+                    "surface-variant": "#e2e3e1",
+                    "surface-container-highest": "#e2e3e1",
+                    "primary": "#000000",
+                    "on-tertiary-fixed-variant": "#464747",
+                    "surface-dim": "#dadad8",
+                    "surface-container": "#eeeeec",
+                    "on-surface-variant": "#444748",
+                    "outline-variant": "#c4c7c7",
+                    "inverse-primary": "#c8c6c5",
+                    "tertiary-container": "#1b1c1c",
+                    "secondary-fixed-dim": "#ffb95f",
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#f4f4f2",
+                    "secondary-container": "#fea619",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed-dim": "#c7c6c6",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#684000",
+                    "secondary-fixed": "#ffddb8",
+                    "primary-fixed-dim": "#c8c6c5",
+                    "tertiary-fixed": "#e4e2e2",
+                    "primary-fixed": "#e5e2e1",
+                    "inverse-on-surface": "#f1f1ef",
+                    "secondary": "#855300",
+                    "on-primary-container": "#858383",
+                    "on-background": "#1a1c1b",
+                    "on-tertiary-container": "#848484",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "container-padding": "24px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "stack-lg": "24px",
+                    "section-gap": "32px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["11px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-md": ["13px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-md": ["15px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "1.4", "letterSpacing": "-0.02em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #FAFAF8;
+            font-family: 'Inter', sans-serif;
+            color: #1a1c1b;
+        }
+        .scandi-card {
+            background: #FFFFFF;
+            border: 1px solid #ECECEC;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .scandi-card:hover {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+        }
+        .premium-shadow {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface">
+<!-- TopAppBar Navigation Shell -->
+<header class="bg-surface dark:bg-surface-dim w-full top-0 sticky z-50 border-b border-outline-variant dark:border-on-tertiary-fixed-variant">
+<div class="flex justify-between items-center px-container-padding py-4 w-full max-w-[1280px] mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer">arrow_back</span>
+<span class="text-headline-md font-headline-md font-semibold text-primary dark:text-on-primary-fixed">BuildVerse</span>
+</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors px-3 py-1 rounded-full" href="#">Home</a>
+<a class="text-primary font-bold font-label-md text-label-md hover:bg-surface-container-high transition-colors px-3 py-1 rounded-full" href="#">Projects</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors px-3 py-1 rounded-full" href="#">Groups</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors px-3 py-1 rounded-full" href="#">Chat</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:bg-surface-container-high p-2 rounded-full transition-colors">search</span>
+<div class="w-8 h-8 rounded-full bg-surface-variant border border-outline-variant overflow-hidden cursor-pointer active:opacity-70">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a software engineer with a minimalist aesthetic, high-key lighting, soft shadows, and a neutral background. The subject is wearing a high-quality black t-shirt, embodying a modern Scandinavian tech professional look. Clean, sharp focus on the face." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-HOt3xOj1MNS-5uYv9r9rc1gn_NfCCm9_5k6HBaZPiBBwz22ToB4BCW1NFQ83crH4RahIWudZ_L4hy0wXj6SQKUnTYI_phOlq8UzywcK-0oapPq5ChhlbDVbVLfboD2h_Kc31qsjOttCOQaUY7d1Oe-yv4Ct-34Y6u8hUlBOVTYeOD8VFNQXPKi9tCrX6jaJwprqCreJizcZmK8lxkX059ArGbK_QqUwhRXwrbZVvAIKDEU32dpyVmkx6TYNuuGtRNfS6WnYf0g"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-[1280px] mx-auto px-container-padding py-12 pb-32">
+<!-- Project Hero Header -->
+<section class="mb-section-gap flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Active Project</span>
+<span class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container text-primary text-label-sm">
+<span class="status-dot bg-secondary-container animate-pulse"></span>
+                        In Development
+                    </span>
+</div>
+<h1 class="font-display text-display text-primary tracking-tight">Project Phoenix</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                    Next-generation serverless architecture for automated infrastructure provisioning. Syncing real-time state with distributed edge clusters.
+                </p>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-full flex items-center gap-2 premium-shadow transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+                    Sync GitHub
+                </button>
+<button class="bg-white border border-outline-variant text-primary font-label-md text-label-md px-6 py-3 rounded-full flex items-center gap-2 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+                    Project Settings
+                </button>
+</div>
+</section>
+<!-- Main Bento Content -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Tasks Progress (Linear-inspired) -->
+<div class="md:col-span-8 scandi-card">
+<div class="flex justify-between items-center mb-8">
+<h2 class="font-headline-md text-headline-md">Milestones</h2>
+<span class="text-label-md text-on-surface-variant">74% Complete</span>
+</div>
+<div class="space-y-1">
+<!-- Task Item -->
+<div class="flex items-center gap-4 py-4 border-b border-outline-variant group cursor-pointer">
+<span class="material-symbols-outlined text-secondary-container">radio_button_checked</span>
+<div class="flex-1">
+<span class="font-label-md text-label-md text-primary">PHX-102 — Database Migration</span>
+<p class="text-label-sm text-on-surface-variant">Transitioning core clusters to PostgreSQL 16</p>
+</div>
+<div class="hidden sm:flex items-center gap-6">
+<span class="text-label-sm text-on-surface-variant">In Progress</span>
+<div class="w-8 h-8 rounded-full border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up of a diverse professional developer's face, clean lighting, minimalist background, wearing professional attire. Editorial style photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS3oW2HGDKPQGG0IQtlIJt1VA6pFnysPbDA2hfKbvE3SNxq4kAx6U-zTY5IpJbLF5TTOESedLk-knylobepLtYrVloQrfZ3YB1sN56_XOu0b5sVxFmZNUIj2Bm3tfG5tK3M76hQ7ZdMb7XRey5LUjJ14cw1nspSU48hFKXkPbB2cmxHrEm2cG-b6Ss7ixN33kD6mJNlljbRpa5VIC4Cd8nXqnFqUnN1zDY952jMvzmeYFzQjoImeDql31VwXHJ5-KvwLRrgnOfOw"/>
+</div>
+</div>
+</div>
+<!-- Task Item -->
+<div class="flex items-center gap-4 py-4 border-b border-outline-variant group cursor-pointer">
+<span class="material-symbols-outlined text-outline">circle</span>
+<div class="flex-1">
+<span class="font-label-md text-label-md text-primary">PHX-103 — Edge Function Refactor</span>
+<p class="text-label-sm text-on-surface-variant">Optimizing cold starts for global deployments</p>
+</div>
+<div class="hidden sm:flex items-center gap-6">
+<span class="text-label-sm text-on-surface-variant">Backlog</span>
+<div class="w-8 h-8 rounded-full border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Professional studio headshot of a female software architect, modern Scandinavian design aesthetic, soft neutral tones, sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYGJQtatiUCdkZuuBZGwPlIOzJehlru0gX8gYjrs2rm3CJBwB8Vsmt0T4SeEv7OD5G7WjrydkwvsOVoMNlmM374xECbrH-RWWBq1dzN3VubaEtwGESNzPFxAqY3MFIfuAKkInr21Rtfr1qdL7zoY0w2KaQLS3UpPac4CjpKUPUuOI4U3v3uu4S08glwe3OqBCVQ8zz9O6ET2pJffRx7sJPJBTYjcakA0-QMHXqvVRgVy7dZ5wnV0N_zv18vK7vE8U-NJk69JYO4Q"/>
+</div>
+</div>
+</div>
+<!-- Task Item -->
+<div class="flex items-center gap-4 py-4 group cursor-pointer">
+<span class="material-symbols-outlined text-green-600" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex-1">
+<span class="font-label-md text-label-md text-on-surface-variant line-through">PHX-098 — API Documentation</span>
+<p class="text-label-sm text-on-surface-variant">v1.2 OpenAPI specifications finalized</p>
+</div>
+<div class="hidden sm:flex items-center gap-6">
+<span class="text-label-sm text-on-surface-variant">Completed</span>
+<div class="w-8 h-8 rounded-full border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a young creative developer, cinematic lighting, minimalist aesthetic, bright airy environment, clean professional appearance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANNFveMwMX3UYvYXd7Vqz5QykFwegGzLzEvSWvTCZBvhuAUvMhd1jjnluz4vO1ayoLDU0T1gYhVxBgzZx7MCTt379-E5_4euLmERwe8drGY-xjpSZvZjGeJpxblRs8hvE73lV41Dsw1J5icy6JnUrEX6lSXImVTxmRkenB5BLRuu8jMYzSU6bJTjJbsvfBbuCD8JCy73BtJ_hD4bpkjyxkcNxPEPC_UrvIU2NTnVcJz4ys5jsveuMTBmobPyrFH_6ffrtRCJHykg"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Team & Metrics -->
+<div class="md:col-span-4 space-y-gutter">
+<!-- Team Section -->
+<div class="scandi-card">
+<h3 class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant mb-6">Team Members</h3>
+<div class="flex flex-col gap-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="High-end professional avatar of a lead developer, minimalist portraiture, neutral grey background, high contrast lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbWdMR9Cf5rP3n_Viv53Gu-ndMbGPE79aVIsenFgS8YekWLR7uGdXJUZwWF9j3gCrL14dCfxNXFUBtMGm4UX3JkBcjUNq1g64FZ-su6bSRdcV3oT8zw5HV1tH_Ot4B35R3ktRI1zlsIhipLAEQeTRgivaUq1aNBW6SgKCKVPwikJUAhWaAOGRkQULjGg4-_CiPK--XPJnJceDK9v7ApvWcKJGyJqVzkqaprYG1cpH6OGH0b2DgVSvAWbhNNDCNB3sHkL7Xn8Ryhg"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md">Erik Solberg</span>
+<span class="text-label-sm text-on-surface-variant">Lead Architect</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Modern professional portrait of a DevOps engineer, soft daylight, minimalist studio setting, high resolution texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0M591PuXg3JSTbiuhOuDVBGr9HE-QeYAy6MlzEjZuGE_Vt96dBOP-mn_j815YZIpN5vEicSc6K6c69qBYIikLnVjurMJ9afX8eh3YrJEaczJTTu6FmpbbCHNxT6M0zkV09z2UHSOyK080XbTtJm8uNps4WqJ9MP3CQNy4HRSKl2cLniK62LeXk_yT9j_gPSmI-Nymndy460w6wfFO1_A0dTYtFGkOoXighs2oXheqUyGOjF1eJkKENGNJC3poYCmzH-GT3OTsww"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md">Astrid Lind</span>
+<span class="text-label-sm text-on-surface-variant">Infrastructure</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Creative professional portrait for a tech startup, bright and airy minimalist vibe, soft focus background, Scandinavian aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrV-aA4Ofnbt67jz_4c2YBJB31Azg3yWR_0PtbMlhL0AXi60QWetA2ysuZFzUXM9qHmwF-yZOIzGvyHKdrc6oOzptf7EXK-m4T9k0VXuzS6JzjBAWG7qxUBLK3dmm_8guUCi1UYpFQARGHZdjnDgR5i4KcVVn80VRarMJsV6eKqzI_lV0y23hJjLl4IUSbKclpqqnzq-rqcQk3cyn7TnOV4r6NfyIfcq-aE3kaCpKfWasTazxPSu8OsPa5qXjRgDR5_hxeiT7jZw"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md">Jonas Berg</span>
+<span class="text-label-sm text-on-surface-variant">Frontend Lead</span>
+</div>
+</div>
+<button class="w-full mt-2 py-3 rounded-xl border border-dashed border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-colors">
+                            + Add Contributor
+                        </button>
+</div>
+</div>
+<!-- GitHub Status -->
+<div class="scandi-card bg-primary-container text-white">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary-container">hub</span>
+<span class="font-label-md text-label-md">Main Repository</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-label-sm text-on-primary-container">Latest Commit</span>
+<span class="text-label-sm font-mono">#f4a12b</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-label-sm text-on-primary-container">Open PRs</span>
+<span class="text-label-sm">12 Active</span>
+</div>
+<div class="h-1 bg-on-primary-container/20 rounded-full overflow-hidden mt-4">
+<div class="h-full bg-secondary-container w-3/4"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Issues List -->
+<div class="md:col-span-12 scandi-card">
+<div class="flex justify-between items-center mb-8">
+<h2 class="font-headline-md text-headline-md">Recent Issues</h2>
+<button class="text-label-md text-primary font-semibold underline underline-offset-4">View All Tracker</button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-2">
+<!-- Issue -->
+<div class="flex items-center justify-between py-4 border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-error text-[20px]">warning</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md">Security: Dependency Vulnerability</span>
+<span class="text-label-sm text-on-surface-variant">High Priority • GH-241</span>
+</div>
+</div>
+<span class="text-label-sm px-2 py-1 rounded bg-error-container text-on-error-container">Critical</span>
+</div>
+<!-- Issue -->
+<div class="flex items-center justify-between py-4 border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary text-[20px]">bug_report</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md">Layout: Mobile Overflow</span>
+<span class="text-label-sm text-on-surface-variant">UI/UX • GH-238</span>
+</div>
+</div>
+<span class="text-label-sm px-2 py-1 rounded bg-surface-container-high text-on-surface-variant">Review</span>
+</div>
+<!-- Issue -->
+<div class="flex items-center justify-between py-4 border-b border-outline-variant lg:border-0">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-[20px]">speed</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md">Performance: Asset Minification</span>
+<span class="text-label-sm text-on-surface-variant">Optim • GH-244</span>
+</div>
+</div>
+<span class="text-label-sm px-2 py-1 rounded bg-secondary-fixed text-on-secondary-container">Next Sprint</span>
+</div>
+<!-- Issue -->
+<div class="flex items-center justify-between py-4 border-0">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-[20px]">chat_bubble_outline</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md">Feedback: User Permissions Flow</span>
+<span class="text-label-sm text-on-surface-variant">Community • GH-239</span>
+</div>
+</div>
+<span class="text-label-sm px-2 py-1 rounded bg-surface-container-high text-on-surface-variant">Triaged</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar Navigation Shell -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface dark:bg-surface-dim border-t border-outline-variant dark:border-on-tertiary-fixed-variant shadow-sm flex justify-around items-center px-4 pt-2 pb-6">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-primary transition-all active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed-dim font-semibold hover:text-primary transition-all active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+<span class="font-label-sm text-label-sm">Projects</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-primary transition-all active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Groups</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-primary transition-all active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm">Chat</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-primary transition-all active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</div>
+</nav>
+<script>
+        // Simple Micro-interactions for Cards
+        document.querySelectorAll('.scandi-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

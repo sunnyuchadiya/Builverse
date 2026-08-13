@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BuildVerse | Projects</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e3e1",
+                    "background": "#f9f9f7",
+                    "secondary-container": "#fea619",
+                    "primary-fixed-dim": "#c8c6c5",
+                    "on-tertiary-fixed-variant": "#464747",
+                    "inverse-on-surface": "#f1f1ef",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#e4e2e2",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#858383",
+                    "on-surface": "#1a1c1b",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#1c1b1b",
+                    "surface-container-low": "#f4f4f2",
+                    "secondary-fixed": "#ffddb8",
+                    "tertiary-fixed-dim": "#c7c6c6",
+                    "inverse-primary": "#c8c6c5",
+                    "on-secondary-fixed": "#2a1700",
+                    "on-error-container": "#93000a",
+                    "surface-container": "#eeeeec",
+                    "surface-container-highest": "#e2e3e1",
+                    "on-surface-variant": "#444748",
+                    "surface-container-high": "#e8e8e6",
+                    "surface-bright": "#f9f9f7",
+                    "on-secondary-fixed-variant": "#653e00",
+                    "inverse-surface": "#2f3130",
+                    "tertiary-container": "#1b1c1c",
+                    "outline": "#747878",
+                    "on-primary-fixed": "#1c1b1b",
+                    "tertiary": "#000000",
+                    "surface-tint": "#5f5e5e",
+                    "surface-dim": "#dadad8",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#474646",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb95f",
+                    "secondary": "#855300",
+                    "outline-variant": "#c4c7c7",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "on-background": "#1a1c1b",
+                    "on-tertiary-container": "#848484",
+                    "surface": "#f9f9f7",
+                    "primary-fixed": "#e5e2e1",
+                    "primary": "#000000",
+                    "on-secondary-container": "#684000"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "container-padding": "24px",
+                    "section-gap": "32px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "stack-lg": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["15px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "1.4", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                    "label-sm": ["11px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                    "label-md": ["13px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f9f9f7;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .editorial-card {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+        .editorial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- Top Navigation Anchor -->
+<header class="w-full top-0 sticky z-50 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-on-tertiary-fixed-variant flex justify-between items-center px-container-padding py-4">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-semibold text-primary dark:text-on-primary-fixed">BuildVerse</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors px-2 py-1 rounded" href="#">Home</a>
+<a class="font-label-md text-label-md text-primary font-bold px-2 py-1 rounded" href="#">Projects</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors px-2 py-1 rounded" href="#">Groups</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors px-2 py-1 rounded" href="#">Chat</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="cursor-pointer active:opacity-70 p-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed">search</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a software developer in a minimalist studio setting. The lighting is soft and natural, emphasizing clean lines and a premium corporate aesthetic. The background is a soft off-white, matching a Scandinavian design language with subtle tonal depth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1UmfjMezcmJLb5aOsu5PQZWrwkAk-M7nkFZfy5XYA8prf7BgDdNBPlT506FCIoGfBxckigCFipsXIzHSOHCMDRwnb-LWO0RlGmfrDfH0wApChgddLcrQf9rZGVhLumiRAiCJgg1sinbk3svQBfgRHPEQ1WJ4puFEQO6UltzBd_xF9RFu6YDqm5FT5lYDGmNo8AYNTcHRWkh01dZv4olRe8e2lizrcYAX7RbsVBSLfLAo_a2rg_JcZvWRpxQJMHr0YF1SeYJaPpw"/>
+</div>
+</div>
+</header>
+<main class="max-w-[1280px] mx-auto px-container-padding py-stack-lg mb-24 md:mb-12">
+<!-- Header & Search -->
+<section class="flex flex-col gap-stack-lg mb-section-gap">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary">Discover the future</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-2xl">Browse the most innovative technical projects and connect with world-class engineering teams.</p>
+</div>
+</div>
+<div class="relative w-full max-w-3xl">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-full py-4 pl-12 pr-6 focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-body-md font-body-md transition-all placeholder:text-outline-variant" placeholder="Search Projects (e.g., Rust engines, AI agents...)" type="text"/>
+</div>
+<div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md transition-all active:scale-95">All Tech</button>
+<button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant px-6 py-2 rounded-full font-label-md text-label-md hover:bg-surface-container-high transition-all active:scale-95">Rust</button>
+<button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant px-6 py-2 rounded-full font-label-md text-label-md hover:bg-surface-container-high transition-all active:scale-95">Next.js</button>
+<button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant px-6 py-2 rounded-full font-label-md text-label-md hover:bg-surface-container-high transition-all active:scale-95">AI &amp; ML</button>
+<button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant px-6 py-2 rounded-full font-label-md text-label-md hover:bg-surface-container-high transition-all active:scale-95">Web3</button>
+<button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant px-6 py-2 rounded-full font-label-md text-label-md hover:bg-surface-container-high transition-all active:scale-95">Go</button>
+</div>
+</section>
+<!-- Your Teams Section (Small Asymmetric Carousel) -->
+<section class="mb-section-gap">
+<div class="flex items-center justify-between mb-stack-md">
+<h2 class="font-headline-md text-headline-md text-primary">Your Teams</h2>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1" href="#">
+                    Manage Teams <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Team Card 1 -->
+<div class="editorial-card bg-surface-container-lowest border border-outline-variant rounded-[24px] p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<span class="bg-surface-container-highest px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Active</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Core Architecture</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Refining the build system for BuildVerse v2.0.</p>
+</div>
+<div class="flex items-center gap-2 mt-auto">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a developer with glasses in a bright, airy workspace. Soft shadows and high-key lighting create a professional, modern aesthetic suitable for a high-end tech platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD39aLYZiK1iO5Er1823QcqaM8QWk3-CJKnuUzt18f2V0yT8lRHdo27IfPckJ9gfN06K0-HFiFxr0_8u-z19DGDHb6qsx0zXcst0i0MJFfT9aYIVyFwjUw1C__tDJErDVC1eghz9D1vUTbIRkPQV-iH0ut2fveEQxs4fuWykAM40vhwI-IkhiSDSNyL9dauWX6iXAamVmFSGib5g9zh7crii6w8ExlR6ESbnRMCCCeb0WNzNDTK7bVCQvg-CBtpw38dsfVTyNlFDA"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Minimalist headshot of a technical lead in a clean, minimalist studio environment. The color palette is composed of soft grays and whites, following a premium Scandinavian design style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7FGlALut7m7mDHf4U1I5y6OXjPZFs9RkuhVOv-TiLF1S9M9z40BC8YULlCLSwss-hMgOiXskzl08reffYldleTMYRwwKPzETsB73WdoqLdlvtSYYTZIRHNQmtlmDaxUCRdDAUJJKgIpahnlYHFp8Fe74RwR5W24sEp6KDKS-QuI-FoX7_HktGWH3or0hOKgyDXpJyLvZ3DAiUcQMcovYOTDWLrr82cqbcTeA0nEp6gJu9Uxi-b6k6m1J8lVkmUUHGldxKYEnF7Q"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-container-high flex items-center justify-center text-xs font-bold text-on-surface-variant">
+                                +4
+                            </div>
+</div>
+<span class="text-label-sm font-label-sm text-outline">6 Members</span>
+</div>
+</div>
+<!-- Team Card 2 -->
+<div class="editorial-card bg-surface-container-lowest border border-outline-variant rounded-[24px] p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined">auto_awesome</span>
+</div>
+<span class="bg-surface-container-highest px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Reviewing</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">LLM Integration</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Open-source wrapper for large language models.</p>
+</div>
+<div class="flex items-center gap-2 mt-auto">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A technical professional in a high-tech office with blurred architectural features in the background. The mood is calm and focused, utilizing a refined mix of warm and cool tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYddz9JcNHFz4ZxhyaPc6vG4s-QOJmUmIUWvLYvsspbC4EF19T7TM2oDAD3zSSDEqtpDEVnf3YRYXfz3xHJFWTn78OEnsJAjCfanUDLjV4tANra2qER7e1Eo_oenNtP82WI2nZPCANfJoAXzikvcaBSYYmD5b3IaGQhAF-3HwI2GDVyAZiytY6LQM-IEJwJ-opyHGqK-BrKxfq0PgP8rAuoWBWgx2RH4yjZtITPxugPaW1Z9I-97N3My950mHzQxcB9LScu8xF1A"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-container-high flex items-center justify-center text-xs font-bold text-on-surface-variant">
+                                +1
+                            </div>
+</div>
+<span class="text-label-sm font-label-sm text-outline">3 Members</span>
+</div>
+</div>
+<!-- Create New Team (Actionable Card) -->
+<div class="editorial-card bg-transparent border-2 border-dashed border-outline-variant rounded-[24px] p-6 flex flex-col items-center justify-center gap-3 cursor-pointer group hover:bg-surface-container-low transition-all">
+<div class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-outline">add</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Create New Team</span>
+</div>
+</div>
+</section>
+<!-- Trending Projects (Bento Grid Style) -->
+<section class="mb-section-gap">
+<div class="flex items-center justify-between mb-stack-lg">
+<h2 class="font-headline-md text-headline-md text-primary">Trending Projects</h2>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">west</span>
+</button>
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">east</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Large Featured Project -->
+<div class="md:col-span-8 editorial-card bg-surface-container-lowest border border-outline-variant rounded-[24px] overflow-hidden group">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A hyper-modern digital visualization of a neural network interface. Gleaming metallic surfaces reflect soft, violet and blue light. The aesthetic is extremely clean, minimalist, and high-fidelity, following an editorial tech-lifestyle visual direction." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfym3NTWkz280JAJtGWCqfmZHa2AsOBJKqUcAmBEwu3kxzHrp3_Z9bXBxrXMIbwvnoBjU9I54cI78Z7n18MbcujzNniVqdt9NLOyXUPsfpzlECYeCx-LPGPLBjqDFhQCq1GdnGxSPXXaPU1kIa9bcXERhH7eaITTKbsX03kzhRBmMQICIvtaLV15U75o7pEvevaz8qRIUMNQHhAI4MPSq4mvLAykHP0QTLsuY_XwhI2zj6x9eZ2JRzyD_L1pQw2d3MDBtrbPl2NQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<div class="flex gap-2 mb-2">
+<span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold">AI Framework</span>
+<span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold">Python</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg font-bold">NeuralCanvas OS</h3>
+</div>
+</div>
+<div class="p-8 flex flex-col gap-6">
+<p class="font-body-lg text-body-lg text-on-surface-variant">The world's first open-source operating system designed specifically for running localized AI agents with zero latency and complete privacy.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Professional designer portrait in a bright studio. High-key lighting, minimalist attire, clean neutral background. Professional and creative aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoVA-Lqd9HmeDC7_oLW5aDnBDdBzMQ73UQJEqDO7qAbtRxHEbIx91bmlm2BtGvTj13z6nxFLDqilYuY8QqBdhiwPpM-t3gObYa75sbmpVbLksRisgG63T-951nDS9mDi2AL4wKLnacfmHXOdsb9T8BT_hT_h38_ci1W0F5MnXnvdilDoDvd9ZIvAoH3XHaZlEIHCeUA5neSXh85iPv3TRzKnWmADUaTRjDxPGW4_KY6bHp5wLxZJK2cHc86KhzeZyLcOkESo-mFg"/>
+</div>
+<span class="font-label-md text-label-md text-primary">Managed by Quantum Studio</span>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-full font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all">View Project</button>
+</div>
+</div>
+</div>
+<!-- Secondary Featured Projects -->
+<div class="md:col-span-4 flex flex-col gap-8">
+<!-- Mini Project Card 1 -->
+<div class="editorial-card bg-surface-container-lowest border border-outline-variant rounded-[24px] p-6 flex flex-col gap-4">
+<div class="h-32 w-full rounded-xl overflow-hidden mb-2">
+<img class="w-full h-full object-cover" data-alt="Detailed abstract 3D render of crystalline structures representing data blocks. The lighting is crisp and cool-toned, with sharp highlights and deep, clean shadows. Minimalist composition with extreme whitespace around the subject." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgKb1ED7Rouy21zDumh6HxaKjj-vMdQevSEBdUi3Zv23eypVLfhNmHd9CfgVOKPmbdMyZ9eMcz3Igc9jYzEzRIdOMcDZcUlasFB5YThhOBlLOGyUmXO6FjZWV59S0hv3x2xW8HevyH0hOHxa7dVRHRKLhIVIiSaCb9_BPT5cEgns7-YkCz8fKOkYuLtRBHh42fsNg_GrREyqYgyWfbacCqH4F1_XCLkzPpVAHStcIJcpAZDI9l5YJCVIm_Sa4zXhpfrhqnVYmpzw"/>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">EtherDB</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Decentralized, high-throughput vector database for edge nodes.</p>
+</div>
+<div class="flex justify-between items-center mt-2">
+<div class="flex -space-x-1.5">
+<div class="w-7 h-7 rounded-full border-2 border-surface-container-lowest bg-surface-variant"></div>
+<div class="w-7 h-7 rounded-full border-2 border-surface-container-lowest bg-surface-container-highest"></div>
+</div>
+<button class="border border-outline-variant text-primary px-4 py-1.5 rounded-full font-label-md text-label-md hover:bg-surface-container-high transition-all">Join</button>
+</div>
+</div>
+<!-- Mini Project Card 2 -->
+<div class="editorial-card bg-surface-container-lowest border border-outline-variant rounded-[24px] p-6 flex flex-col gap-4">
+<div class="h-32 w-full rounded-xl overflow-hidden mb-2">
+<img class="w-full h-full object-cover" data-alt="Macro photography of a sleek, black circuit board with gold pathways. Minimalist and artistic, focusing on the craftsmanship and precision of hardware. Soft bokeh lighting in a dark, premium setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxEjeblXeMyYjNI5_8v9NTRrTWu8yzgfgCUkG2251zx8f9vi1CyLq9ANAAMiI6jf_hmJNQCRljrUBGOzeAWtIZaNBreNc3POL6OfaqvhTPIWj5OjExOn5awh_Gtk53IUBwb8PiQtdippMes_ZEcOd21NQ_Y7BMy4srztX2BLcflgRzQ9WlriRKuhx-PF2uXLLBzWFQRun2pRYXoD5reYe3ykKOR0JuHs24igg01l8JbxFc3SHQ2yhcr3sBeRp_j6hLjVRWBZAIeQ"/>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Titan Engine</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">A 3D rendering engine built entirely in Rust for performance.</p>
+</div>
+<div class="flex justify-between items-center mt-2">
+<div class="flex -space-x-1.5">
+<div class="w-7 h-7 rounded-full border-2 border-surface-container-lowest bg-primary-fixed-dim"></div>
+<div class="w-7 h-7 rounded-full border-2 border-surface-container-lowest bg-secondary-fixed"></div>
+</div>
+<button class="border border-outline-variant text-primary px-4 py-1.5 rounded-full font-label-md text-label-md hover:bg-surface-container-high transition-all">Join</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- All Projects List (Clean editorial rows) -->
+<section class="mb-section-gap">
+<h2 class="font-headline-md text-headline-md text-primary mb-stack-lg">Discover More</h2>
+<div class="flex flex-col gap-px bg-outline-variant rounded-[24px] overflow-hidden border border-outline-variant">
+<!-- Project Row 1 -->
+<div class="bg-surface-container-lowest p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:bg-surface-container-low transition-colors group cursor-pointer">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimal geometric logo for a tech brand, featuring clean lines and a monochrome palette. The logo represents connectivity and structure, rendered in high contrast on a soft white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0TzoFevYU7xl5gCGUuV8jziXsar-LIiVokNRdD4ZbBoHjJVo1H1XvAMBwYJmkVfOBB5i06Y505EhDAgqBy-AFcTix5_ajulDL5Wc_IL-eLn1YIYA4Qwpz_ncJvmrK--IXd7cdXiuvUaM-M5YWI29Tccg9zm8Jpsp-edQmhEtBteJAM7d4owzYI8bqonlF1xQe0b-Yzuu08jjirlNNCJ2KtTxqUlsC8gjbEFHhfdEfGv4R0jFLFx0ILKUV9naPmc6ZKFKPtRx_lw"/>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-primary">BuildVerse Deploy</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Single-click infrastructure orchestration for small teams.</p>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="hidden lg:flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Tech Stack</span>
+<span class="font-body-md text-body-md text-on-surface">Go, Terraform, AWS</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span class="text-label-md font-label-md">12</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Project Row 2 -->
+<div class="bg-surface-container-lowest p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:bg-surface-container-low transition-colors group cursor-pointer">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="An abstract icon symbolizing cloud computing and data flows. Minimalist, line-art style using a dark gray and gold color scheme. High-end professional aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByXK0Ohen4BVOQEa3lijR1fyEAiwuLM12ukdSXrfX-NbQgeDBSpOBGkLk_azsOSX1hUhaI0ma2eKxQTcWQXpzwHkVni_7CI7aZKD_QospCp4KfqI5buk6RX77-64Ma3ivSRZlyiGqFc3Y2mzYx3a6a5XgAQTUZS3Ss2xrQ7InV56MJGC80OO7sGmMbPRaFp2S-49ZkE5HtZ-Pm36fPNwgr2rSuuuFFyZckO2XVu3E4iU-hfjG8XF-FOpSHckiAwdfNiVz53HoClw"/>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-primary">Prism Analytics</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Real-time user behavior analysis with privacy-first tracking.</p>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="hidden lg:flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Tech Stack</span>
+<span class="font-body-md text-body-md text-on-surface">Next.js, Clickhouse</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span class="text-label-md font-label-md">8</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Project Row 3 -->
+<div class="bg-surface-container-lowest p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:bg-surface-container-low transition-colors group cursor-pointer">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A sleek minimalist bolt icon for a speed-focused tech project. Monochrome style, high-end finishing, sophisticated lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYhbrSA6biI3FoDCFO6IWhdGKTu9nMQNaIs5Gb5CyO8xxiYRij2MUfbGEmB0Ita_9RGoZrQUOKCeRF8JI_kvBTCrxSW0fGJJIblwp7yLCe31HeWgwXKMDx0WB9a7VVJpb5n8hZjObS3er36_GylkrPs8U6huPyWNpNzaq2Fqw8vJ8JJe-riLVSIarCy4RVSQWQVSi9Xqfyi7YITW07MuVEDLIp9jbIdkAoeQoqDot5_xA8kWp-fX5yDH8skH2squNzGcjbA-nzjw"/>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-primary">Velox Core</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Low-latency networking library for high-frequency trading.</p>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="hidden lg:flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Tech Stack</span>
+<span class="font-body-md text-body-md text-on-surface">C++, Assembly</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span class="text-label-md font-label-md">24</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 flex justify-center">
+<button class="bg-transparent border border-outline-variant text-primary px-10 py-3 rounded-full font-label-md text-label-md hover:bg-surface-container-high transition-all">Load More Projects</button>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface dark:bg-surface-dim border-t border-outline-variant dark:border-on-tertiary-fixed-variant flex justify-around items-center px-4 pt-2 pb-6 shadow-sm">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-primary transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed-dim font-semibold active:scale-95 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+<span class="font-label-sm text-label-sm">Projects</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-primary transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Groups</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-primary transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm">Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-primary transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple search animation logic
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('max-w-4xl');
+            searchInput.parentElement.classList.remove('max-w-3xl');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.add('max-w-3xl');
+            searchInput.parentElement.classList.remove('max-w-4xl');
+        });
+
+        // Filter button interaction
+        const filterButtons = document.querySelectorAll('button[class*="rounded-full"]');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if(btn.innerText === "Load More Projects" || btn.innerText === "View Project" || btn.innerText === "Join") return;
+                
+                // Toggle active state (simplified for demo)
+                filterButtons.forEach(b => {
+                    if (b.innerText === "Load More Projects" || b.innerText === "View Project" || b.innerText === "Join") return;
+                    b.classList.remove('bg-primary', 'text-on-primary');
+                    b.classList.add('bg-surface-container-lowest', 'border', 'border-outline-variant', 'text-on-surface-variant');
+                });
+                btn.classList.remove('bg-surface-container-lowest', 'border', 'border-outline-variant', 'text-on-surface-variant');
+                btn.classList.add('bg-primary', 'text-on-primary');
+            });
+        });
+    </script>
+</body></html>

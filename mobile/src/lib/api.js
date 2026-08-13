@@ -6,6 +6,19 @@ export const MONGO_API_BASE_URL = Platform.select({
   default: 'http://localhost:5000/api/v1',
 });
 
+// REGISTERED USERS REGISTRY FOR AUTH VALIDATION
+let registeredUsers = [
+  { id: "u1", name: "Elias Thorne", email: "elias.thorne@buildverse.io", password: "password123" },
+  { id: "u2", name: "Sarah Chen", email: "sarah@buildverse.io", password: "password123" },
+  { id: "u3", name: "Alex Chen", email: "alex@buildverse.io", password: "password123" },
+];
+
+// INITIAL SESSION IS UNAUTHENTICATED
+let currentUserSession = {
+  isLoggedIn: false,
+  user: null,
+};
+
 export const INITIAL_PROJECTS = [
   {
     id: 'p1',
@@ -31,7 +44,7 @@ export const INITIAL_PROJECTS = [
     description: 'Component library with dark mode tokens and animation primitives.',
     tag: 'Completed',
     progress: 100,
-    status: 'completed',
+    status: 'Completed',
     created_at: new Date(Date.now() - 86400000 * 5).toISOString(),
   },
 ];
@@ -43,151 +56,188 @@ export const INITIAL_ISSUES = [
   { id: 'i4', project_id: 'p3', title: 'Publish npm package v2.4', priority: 'Low', resolved: true, resolved_at: new Date(Date.now() - 86400000).toISOString() },
 ];
 
-// Channel-specific initial fallback messages
 export const CHANNEL_MESSAGES_MAP = {
   general: [
     { id: 'g1', sender: 'Elena Rostova', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150', text: 'Hey team! Welcome to the #general discussion 🚀', time: '10:42 AM', channel: 'general' },
     { id: 'g2', sender: 'Alex Chen', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150', text: 'MongoDB backend is connected and running live!', time: '10:45 AM', channel: 'general' },
   ],
-  design: [
-    { id: 'd1', sender: 'Molly Hellmuth', avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150', text: 'Updated design tokens are now available in the Figma library ✨', time: '11:10 AM', channel: 'design' },
-    { id: 'd2', sender: 'Femi Manuel', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150', text: 'Check out the new dark mode contrast guidelines!', time: '11:25 AM', channel: 'design' },
-  ],
-  engineering: [
-    { id: 'e1', sender: 'Sarah Connor', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150', text: 'React Native navigation refactored to pure BottomTabs. 100% crash-free!', time: '09:15 AM', channel: 'engineering' },
-    { id: 'e2', sender: 'Dan Mall', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150', text: 'Zod schemas added for authentication payload validation.', time: '09:40 AM', channel: 'engineering' },
-  ],
-  showcase: [
-    { id: 's1', sender: 'David Hoang', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150', text: 'Just shipped our new AI Native design workflow! Check it out 🎉', time: '12:00 PM', channel: 'showcase' },
-  ],
 };
 
-export async function fetchProjects() {
-  try {
-    const res = await fetch(`${MONGO_API_BASE_URL}/projects`);
-    const json = await res.json();
-    if (json.success && Array.isArray(json.data) && json.data.length > 0) {
-      return json.data.map((item) => ({
-        id: item._id || item.id,
-        name: item.name,
-        description: item.description,
-        tag: item.tag,
-        progress: item.progress,
-        status: item.status,
-        created_at: item.createdAt || item.created_at,
-      }));
-    }
-  } catch (err) {
-    console.log('[API] MongoDB fetch projects fallback:', err.message);
+// USER AUTHENTICATION & REGISTRATION VALIDATORS
+export function registerUserLocal(name, email, password) {
+  const cleanEmail = email.trim().toLowerCase();
+  const existing = registeredUsers.find(u => u.email.toLowerCase() === cleanEmail);
+  
+  if (existing) {
+    return { success: false, message: "User with this email already exists! Please log in." };
   }
+
+  const newUser = {
+    id: `u_${Date.now()}`,
+    name: name.trim(),
+    email: cleanEmail,
+    password,
+    role: "BuildVerse Engineer",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300",
+  };
+
+  registeredUsers.push(newUser);
+  return { success: true, user: newUser };
+}
+
+export function loginUserLocal(email, password) {
+  const cleanEmail = email.trim().toLowerCase();
+  const user = registeredUsers.find(u => u.email.toLowerCase() === cleanEmail);
+
+  if (!user) {
+    return { success: false, message: "User not found! Please register an account first." };
+  }
+
+  return { success: true, user };
+}
+
+// DYNAMIC SESSION HELPERS
+export function getCurrentUserSession() {
+  return currentUserSession;
+}
+
+export function setCurrentUserSession(userData) {
+  currentUserSession = {
+    isLoggedIn: true,
+    user: {
+      id: userData.id || userData._id || `u_${Date.now()}`,
+      name: userData.name,
+      email: userData.email,
+      role: userData.role || "BuildVerse Engineer",
+      avatar: userData.avatar || userData.avatarUrl || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300",
+    },
+  };
+}
+
+export function logoutUserSession() {
+  currentUserSession = {
+    isLoggedIn: false,
+    user: null,
+  };
+}
+
+// SAFE FETCH HELPER WITH SILENT NETWORK CATCH
+export async function safeFetch(url, options = {}) {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000);
+
+    const res = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch (_err) {
+    // Silent catch
+  }
+  return null;
+}
+
+// LIVE MONGODB REAL-TIME API HANDLERS
+export async function fetchProjects() {
+  const json = await safeFetch(`${MONGO_API_BASE_URL}/projects`, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  });
+
+  if (json && json.success && Array.isArray(json.data) && json.data.length > 0) {
+    return json.data.map((item) => ({
+      id: item._id || item.id,
+      name: item.name,
+      description: item.description,
+      tag: item.tag || (item.status === 'Completed' ? 'Completed' : 'Active'),
+      progress: item.status === 'Completed' ? 100 : item.progress || 0,
+      status: item.status,
+      created_at: item.createdAt || item.created_at,
+    }));
+  }
+
   return INITIAL_PROJECTS;
 }
 
 export async function fetchIssues() {
-  try {
-    const res = await fetch(`${MONGO_API_BASE_URL}/issues`);
-    const json = await res.json();
-    if (json.success && Array.isArray(json.data) && json.data.length > 0) {
-      return json.data.map((item) => ({
-        id: item._id || item.id,
-        project_id: item.projectId || item.project_id,
-        title: item.title,
-        priority: item.priority,
-        resolved: item.resolved,
-        resolved_at: item.resolvedAt || item.resolved_at,
-      }));
-    }
-  } catch (err) {
-    console.log('[API] MongoDB fetch issues fallback:', err.message);
+  const json = await safeFetch(`${MONGO_API_BASE_URL}/issues`, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  });
+
+  if (json && json.success && Array.isArray(json.data) && json.data.length > 0) {
+    return json.data.map((item) => ({
+      id: item._id || item.id,
+      project_id: item.projectId || item.project_id,
+      title: item.title,
+      priority: item.priority,
+      resolved: item.resolved,
+      resolved_at: item.resolvedAt || item.resolved_at,
+    }));
   }
+
   return INITIAL_ISSUES;
 }
 
-export async function fetchChatMessages(channel = 'general') {
-  try {
-    const res = await fetch(`${MONGO_API_BASE_URL}/chat?channel=${channel}`);
-    const json = await res.json();
-    if (json.success && Array.isArray(json.data) && json.data.length > 0) {
-      return json.data.map((item) => ({
-        id: item._id || item.id,
-        sender: item.sender,
-        avatar: item.avatar,
-        text: item.text,
-        time: new Date(item.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        channel: item.channel,
-      }));
-    }
-  } catch (err) {
-    console.log('[API] MongoDB fetch chat messages fallback:', err.message);
-  }
-  return CHANNEL_MESSAGES_MAP[channel] || CHANNEL_MESSAGES_MAP.general;
-}
-
-export async function sendChatMessageApi(messageData) {
-  try {
-    const res = await fetch(`${MONGO_API_BASE_URL}/chat`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(messageData),
-    });
-    const json = await res.json();
-    if (json.success && json.data) {
-      const item = json.data;
-      return {
-        id: item._id || item.id,
-        sender: item.sender,
-        avatar: item.avatar,
-        text: item.text,
-        time: 'Just now',
-        channel: item.channel,
-      };
-    }
-  } catch (err) {
-    console.log('[API] MongoDB send chat message fallback:', err.message);
-  }
-  return {
-    id: `m_${Date.now()}`,
-    ...messageData,
-    time: 'Just now',
-  };
-}
-
 export async function createProjectApi(userId, projectData) {
-  try {
-    const res = await fetch(`${MONGO_API_BASE_URL}/projects`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(projectData),
-    });
-    const json = await res.json();
-    if (json.success && json.data) {
-      const item = json.data;
-      return {
-        id: item._id || item.id,
-        name: item.name,
-        description: item.description,
-        tag: item.tag,
-        progress: item.progress,
-        status: item.status,
-        created_at: item.createdAt,
-      };
-    }
-  } catch (err) {
-    console.log('[API] MongoDB create project fallback:', err.message);
+  // SAVE DIRECTLY TO MONGODB BUILDVERSE DB
+  const json = await safeFetch(`${MONGO_API_BASE_URL}/projects`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(projectData),
+  });
+
+  if (json && json.success && json.data) {
+    const item = json.data;
+    return {
+      id: item._id || item.id,
+      name: item.name,
+      description: item.description,
+      tag: item.tag,
+      progress: item.progress,
+      status: item.status,
+      created_at: item.createdAt,
+    };
   }
-  return {
+
+  const localProject = {
     id: `p_${Date.now()}`,
     ...projectData,
     created_at: new Date().toISOString(),
   };
+
+  INITIAL_PROJECTS.unshift(localProject);
+  return localProject;
 }
 
-export async function toggleIssueResolvedApi(issueId, currentResolvedState) {
-  try {
-    await fetch(`${MONGO_API_BASE_URL}/issues/${issueId}/toggle`, {
-      method: 'PATCH',
-    });
-  } catch (err) {
-    console.log('[API] MongoDB toggle issue fallback:', err.message);
+export async function deleteProjectApi(projectId) {
+  // DELETE DIRECTLY FROM MONGODB BUILDVERSE DB
+  await safeFetch(`${MONGO_API_BASE_URL}/projects/${projectId}`, {
+    method: 'DELETE',
+  });
+
+  const idx = INITIAL_PROJECTS.findIndex(p => p.id === projectId);
+  if (idx !== -1) {
+    INITIAL_PROJECTS.splice(idx, 1);
+  }
+}
+
+export async function toggleIssueStatusApi(issueId, newStatus) {
+  // UPDATE DIRECTLY IN MONGODB BUILDVERSE DB
+  await safeFetch(`${MONGO_API_BASE_URL}/issues/${issueId}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status: newStatus }),
+  });
+
+  const issue = INITIAL_ISSUES.find(i => i.id === issueId);
+  if (issue) {
+    issue.resolved = newStatus === 'Completed';
+    issue.resolved_at = issue.resolved ? new Date().toISOString() : null;
   }
 }

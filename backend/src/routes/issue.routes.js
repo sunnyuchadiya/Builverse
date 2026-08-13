@@ -8,6 +8,6 @@ const {
 
 router.route("/").get(getIssues).post(createIssue);
 router.route("/:id/toggle").patch(toggleIssueResolved);
-router.route("/:id").delete(deleteIssue);
+router.route("/:id").patch(toggleIssueResolved).delete(deleteIssue);
 
 module.exports = router;

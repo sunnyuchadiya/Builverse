@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "BuildVerse Mobile",
+    "slug": "buildverse-mobile",
+    "scheme": "buildverse",
+    "platforms": ["ios", "android"],
+    "orientation": "portrait",
+    "jsEngine": "hermes",
+    "plugins": ["expo-router"],
+    "android": {
+      "package": "com.buildverse.mobile"
+    },
+    "ios": {
+      "bundleIdentifier": "com.buildverse.mobile"
+    }
+  }
+}

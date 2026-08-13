@@ -6,7 +6,7 @@ const projectSchema = new Schema(
     description: { type: String, default: "" },
     tag: { type: String, default: "Active" },
     progress: { type: Number, default: 0, min: 0, max: 100 },
-    status: { type: String, enum: ["active", "completed", "archived"], default: "active" },
+    status: { type: String, default: "active" },
     userId: { type: Schema.Types.ObjectId, ref: "User", index: true },
   },
   { timestamps: true }

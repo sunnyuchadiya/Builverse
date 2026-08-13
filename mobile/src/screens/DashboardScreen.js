@@ -1,322 +1,338 @@
 import React, { useEffect, useState } from "react";
 import {
   Modal,
-  RefreshControl,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import GlassCard from "../components/GlassCard";
-import IssueItem from "../components/IssueItem";
 import CustomButton from "../components/CustomButton";
-import { fetchProjects, fetchIssues, toggleIssueResolvedApi } from "../lib/api";
-import { theme } from "../theme";
+import IssueItem from "../components/IssueItem";
+import { fetchIssues, fetchProjects, toggleIssueStatusApi } from "../lib/api";
+import { darkColors, lightColors, useThemeMode } from "../theme";
 
-// Generate 28-day GitHub style contribution matrix
-const GENERATE_HEATMAP = () => {
-  const days = [];
-  const now = new Date();
-  for (let i = 27; i >= 0; i--) {
-    const d = new Date(now);
-    d.setDate(now.getDate() - i);
-    // Random level 0-3 for realistic density
-    const count = [0, 2, 5, 8, 1, 0, 4, 12, 3, 6, 0, 9, 4, 7][i % 14];
-    const level = count === 0 ? 0 : count <= 3 ? 1 : count <= 7 ? 2 : 3;
-    days.push({
-      date: d.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-      count,
-      level,
-    });
-  }
-  return days;
-};
+const ACTIVE_PROJECTS = [
+  { id: "p1", name: "Project Phoenix", subtitle: "Cloud Infrastructure V2", tag: "GitHub Sync", progress: 85, icon: "terminal" },
+  { id: "p2", name: "Aero Engine", subtitle: "High Perf Logic API", tag: "Linear Tasks", pendingTasks: 12, icon: "rocket-outline" },
+];
+
+const RECENT_ACTIVITIES = [
+  {
+    id: "a1",
+    user: "Sarah",
+    action: "pushed 4 commits to main",
+    time: "2 HOURS AGO",
+    icon: "git-commit-outline",
+    repo: "BuildVerse / Core Engine",
+    branch: "main",
+    commits: [
+      "feat(auth): add JWT token refresh mechanism",
+      "fix(ui): responsive card spacing for tablet layout",
+      "refactor(db): Mongoose connection pooling optimization",
+      "docs: update API endpoints documentation",
+    ],
+    stats: "+142 lines, -18 lines",
+  },
+  {
+    id: "a2",
+    user: "Alex",
+    action: 'opened a new issue: "Auth redirect loop on OAuth login"',
+    time: "5 HOURS AGO",
+    icon: "alert-circle-outline",
+    isError: true,
+    repo: "BuildVerse / Web Auth",
+    issueId: "#342",
+    description: "OAuth callback handler enters infinite loop when token cookie expires during active session.",
+    priority: "HIGH",
+  },
+  {
+    id: "a3",
+    user: "Community",
+    action: "New event in 'React Delhi' community",
+    time: "YESTERDAY",
+    icon: "calendar-outline",
+    isEvent: true,
+    eventTitle: "React & Next.js 14 Ecosystem Deep Dive",
+    location: "Connaught Place, Delhi & YouTube Live",
+    attendees: 142,
+  },
+];
 
 export default function DashboardScreen({ navigation }) {
-  const [projects, setProjects] = useState([]);
+  const { isDarkMode, themeColors } = useThemeMode();
+  const colors = themeColors || (isDarkMode ? darkColors : lightColors);
+
+  const [streakCount, setStreakCount] = useState(14);
+  const [toastMessage, setToastMessage] = useState("");
   const [issues, setIssues] = useState([]);
-  const [refreshing, setRefreshing] = useState(false);
-  const [issueFilter, setIssueFilter] = useState("all"); // all | pending | resolved
-
-  // Modals state
-  const [selectedDay, setSelectedDay] = useState(null);
-  const [showAddIssueModal, setShowAddIssueModal] = useState(false);
-  const [newIssueTitle, setNewIssueTitle] = useState("");
-  const [newIssuePriority, setNewIssuePriority] = useState("Medium");
-
-  const heatmapDays = GENERATE_HEATMAP();
-
-  const loadData = async () => {
-    setRefreshing(true);
-    const [pList, iList] = await Promise.all([fetchProjects(), fetchIssues()]);
-    setProjects(pList);
-    setIssues(iList);
-    setRefreshing(false);
-  };
+  const [projects, setProjects] = useState([]);
+  const [activeTab, setActiveTab] = useState("all");
+  const [selectedActivity, setSelectedActivity] = useState(null);
 
   useEffect(() => {
-    loadData();
+    fetchIssues().then(setIssues);
+    fetchProjects().then(setProjects);
   }, []);
 
-  const handleToggleIssue = async (id) => {
+  const handleToggleIssue = async (id, currentStatus) => {
+    const nextStatus = currentStatus === "resolved" ? "open" : "resolved";
+    
     setIssues((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, resolved: !item.resolved } : item))
+      prev.map((item) => (item.id === id ? { ...item, status: nextStatus } : item))
     );
-    const target = issues.find((i) => i.id === id);
-    if (target) {
-      await toggleIssueResolvedApi(id, target.resolved);
+
+    if (nextStatus === "resolved") {
+      setStreakCount((prev) => prev + 1);
+      setToastMessage("🔥 Issue resolved! +1 Streak Day Added!");
+      setTimeout(() => setToastMessage(""), 3000);
+    }
+
+    try {
+      await toggleIssueStatusApi(id, nextStatus);
+    } catch (err) {
+      console.log("[Dashboard] Issue Toggle Error:", err.message);
     }
   };
 
-  const handleAddIssue = () => {
-    if (!newIssueTitle.trim()) return;
-    const createdIssue = {
-      id: `i_${Date.now()}`,
-      project_id: projects[0]?.id || "p1",
-      title: newIssueTitle.trim(),
-      priority: newIssuePriority,
-      resolved: false,
-      resolved_at: null,
-    };
-    setIssues((prev) => [createdIssue, ...prev]);
-    setNewIssueTitle("");
-    setShowAddIssueModal(false);
-  };
-
-  const filteredIssues = issues.filter((i) => {
-    if (issueFilter === "pending") return !i.resolved;
-    if (issueFilter === "resolved") return i.resolved;
+  const filteredIssues = issues.filter((issue) => {
+    if (activeTab === "pending") return issue.status !== "resolved";
+    if (activeTab === "resolved") return issue.status === "resolved";
     return true;
   });
 
-  const activeProjectsCount = projects.filter((p) => p.status === "active").length;
-  const resolvedIssuesCount = issues.filter((i) => i.resolved).length;
-  const openIssuesCount = issues.filter((i) => !i.resolved).length;
-  const velocityRate =
-    issues.length > 0 ? Math.round((resolvedIssuesCount / issues.length) * 100) : 100;
-
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView
-        contentContainerStyle={styles.container}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={loadData}
-            tintColor={theme.colors.primary}
-          />
-        }
-      >
-        {/* HEADER WITH LIVE MONGO BADGE */}
-        <View style={styles.headerRow}>
-          <View>
-            <Text style={styles.greeting}>Welcome back 👋</Text>
-            <Text style={styles.dashboardTitle}>Workspace Overview</Text>
+    <SafeAreaView style={[styles.safeArea, { backgroundColor: colors.background }]}>
+      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+        {/* BRAND TOP BAR */}
+        <View style={styles.brandRow}>
+          <Text style={[styles.brandTitle, { color: colors.foreground }]}>
+            BuildVerse<Text style={{ color: colors.amber }}>.</Text>
+          </Text>
+          <View style={styles.liveSyncPill}>
+            <View style={[styles.liveSyncDot, { backgroundColor: colors.success }]} />
+            <Text style={[styles.liveSyncText, { color: colors.success }]}>MongoDB Live</Text>
           </View>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => setShowAddIssueModal(true)}
-            style={styles.addIssueHeaderBtn}
-          >
-            <Ionicons name="add" size={18} color="#000" />
-            <Text style={styles.addIssueHeaderText}>Issue</Text>
+        </View>
+
+        {/* TOAST BANNER FOR STREAK INCREMENT */}
+        {toastMessage ? (
+          <GlassCard elevated glowing style={styles.toastCard}>
+            <Ionicons name="flame" size={18} color={colors.amber} />
+            <Text style={[styles.toastText, { color: colors.foreground }]}>{toastMessage}</Text>
+          </GlassCard>
+        ) : null}
+
+        {/* STITCH HERO SECTION */}
+        <View style={styles.heroSection}>
+          <Text style={[styles.dashboardBadge, { color: colors.amber }]}>DASHBOARD</Text>
+          <Text style={[styles.heroTitle, { color: colors.foreground }]}>Welcome back, Developer</Text>
+          <Text style={[styles.heroSub, { color: colors.muted }]}>
+            You have 3 shipping goals today. Let's build something remarkable.
+          </Text>
+        </View>
+
+        {/* ACTIVE PROJECTS HORIZONTAL SCROLL */}
+        <View style={styles.sectionHeaderRow}>
+          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Active Projects</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("ProjectsTab")}>
+            <Text style={[styles.viewAllText, { color: colors.amber }]}>View All ›</Text>
           </TouchableOpacity>
         </View>
 
-        {/* 4-CARD METRICS GRID */}
-        <View style={styles.statsGridRow}>
-          <GlassCard style={styles.statCard}>
-            <Ionicons name="folder-open-outline" size={20} color={theme.colors.indigo} />
-            <Text style={styles.statNumber}>{activeProjectsCount}</Text>
-            <Text style={styles.statLabel}>Active Projects</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
+          {ACTIVE_PROJECTS.map((proj) => (
+            <GlassCard key={proj.id} elevated style={styles.activeProjectCard}>
+              <View style={styles.cardHeaderRow}>
+                <View style={[styles.iconBox, { backgroundColor: colors.primary }]}>
+                  <Ionicons name={proj.icon} size={20} color={isDarkMode ? "#000" : "#FFF"} />
+                </View>
+                <View style={[styles.tagBadge, { backgroundColor: colors.elevated }]}>
+                  <Text style={[styles.tagBadgeText, { color: colors.muted }]}>{proj.tag}</Text>
+                </View>
+              </View>
+
+              <Text style={[styles.projectName, { color: colors.foreground }]}>{proj.name}</Text>
+              <Text style={[styles.projectSubtitle, { color: colors.muted }]}>{proj.subtitle}</Text>
+
+              {proj.progress !== undefined ? (
+                <View style={styles.progressBox}>
+                  <View style={styles.progressLabelRow}>
+                    <Text style={[styles.progressLabel, { color: colors.muted }]}>Progress</Text>
+                    <Text style={[styles.progressVal, { color: colors.foreground }]}>{proj.progress}%</Text>
+                  </View>
+                  <View style={[styles.progressTrack, { backgroundColor: colors.elevated }]}>
+                    <View style={[styles.progressFill, { width: `${proj.progress}%`, backgroundColor: colors.amber }]} />
+                  </View>
+                </View>
+              ) : (
+                <View style={styles.pendingRow}>
+                  <Ionicons name="alert-circle" size={16} color={colors.amber} />
+                  <Text style={[styles.pendingText, { color: colors.foreground }]}>{proj.pendingTasks} pending tasks</Text>
+                </View>
+              )}
+            </GlassCard>
+          ))}
+        </ScrollView>
+
+        {/* DEVELOPER METRICS (3-CARD ROW) */}
+        <View style={styles.metricsRow}>
+          <GlassCard style={styles.metricCard}>
+            <Text style={[styles.metricNum, { color: colors.foreground }]}>42</Text>
+            <Text style={[styles.metricLabel, { color: colors.muted }]}>Commits Week</Text>
           </GlassCard>
 
-          <GlassCard style={styles.statCard}>
-            <Ionicons name="checkmark-done-circle-outline" size={20} color={theme.colors.primary} />
-            <Text style={styles.statNumber}>{resolvedIssuesCount}</Text>
-            <Text style={styles.statLabel}>Resolved Issues</Text>
+          <GlassCard style={styles.metricCard}>
+            <Text style={[styles.metricNum, { color: colors.foreground }]}>12</Text>
+            <Text style={[styles.metricLabel, { color: colors.muted }]}>PRs Merged</Text>
+          </GlassCard>
+
+          <GlassCard style={styles.metricCard}>
+            <Text style={[styles.metricNum, { color: colors.foreground }]}>8</Text>
+            <Text style={[styles.metricLabel, { color: colors.muted }]}>Communities</Text>
           </GlassCard>
         </View>
 
-        <View style={styles.statsGridRow}>
-          <GlassCard style={styles.statCard}>
-            <Ionicons name="alert-circle-outline" size={20} color={theme.colors.warning} />
-            <Text style={styles.statNumber}>{openIssuesCount}</Text>
-            <Text style={styles.statLabel}>Open Issues</Text>
-          </GlassCard>
-
-          <GlassCard style={styles.statCard}>
-            <Ionicons name="flash-outline" size={20} color={theme.colors.purple} />
-            <Text style={styles.statNumber}>{velocityRate}%</Text>
-            <Text style={styles.statLabel}>Velocity Rate</Text>
-          </GlassCard>
-        </View>
-
-        {/* GITHUB-STYLE CONTRIBUTION STREAK HEATMAP GRID */}
-        <GlassCard elevated style={styles.streakCard}>
+        {/* DYNAMIC STREAK HEATMAP COUNTER */}
+        <GlassCard elevated glowing style={styles.streakCard}>
           <View style={styles.streakHeader}>
             <View style={styles.streakTitleRow}>
-              <Text style={styles.fireEmoji}>🔥</Text>
-              <View>
-                <Text style={styles.streakTitle}>14 Day Streak</Text>
-
-                <Text style={styles.streakSub}>Longest: 32 days • 142 commits this month</Text>
-              </View>
+              <Ionicons name="flame" size={24} color={colors.amber} />
+              <Text style={[styles.streakCountText, { color: colors.foreground }]}>{streakCount} Day Streak</Text>
             </View>
-            <View style={styles.levelLegendRow}>
-              <Text style={styles.legendText}>Less</Text>
-              <View style={[styles.legendBox, styles.level0]} />
-              <View style={[styles.legendBox, styles.level1]} />
-              <View style={[styles.legendBox, styles.level2]} />
-              <View style={[styles.legendBox, styles.level3]} />
-              <Text style={styles.legendText}>More</Text>
-            </View>
+            <Text style={[styles.streakSub, { color: colors.muted }]}>32 Days Longest • 142 Commits</Text>
           </View>
 
-          {/* 4 WEEKS × 7 DAYS GRID */}
-          <Text style={styles.clickHint}>Tap any day cell to view activity details</Text>
-          <View style={styles.heatmapGrid}>
-            {heatmapDays.map((day, idx) => (
-              <TouchableOpacity
-                key={idx}
-                activeOpacity={0.7}
-                onPress={() => setSelectedDay(day)}
-                style={[
-                  styles.heatmapCell,
-                  day.level === 0 && styles.level0,
-                  day.level === 1 && styles.level1,
-                  day.level === 2 && styles.level2,
-                  day.level === 3 && styles.level3,
-                ]}
-              />
-            ))}
+          {/* DYNAMIC HEATMAP CELLS */}
+          <View style={styles.heatmapRow}>
+            {Array.from({ length: 14 }).map((_, idx) => {
+              const active = idx < streakCount;
+              return (
+                <View
+                  key={idx}
+                  style={[
+                    styles.cell,
+                    { backgroundColor: colors.elevated },
+                    active && { backgroundColor: "rgba(245, 158, 11, 0.4)" },
+                    idx === streakCount - 1 && { backgroundColor: colors.amber },
+                  ]}
+                />
+              );
+            })}
           </View>
         </GlassCard>
 
-        {/* WORKSPACE ISSUES MANAGEMENT SECTION */}
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Workspace Issues</Text>
-          
-          {/* ISSUE STATUS FILTER TABS */}
-          <View style={styles.filterTabsRow}>
+        {/* RECENT ACTIVITY FEED (INTERACTIVE CLICKABLE ITEMS) */}
+        <Text style={[styles.sectionTitle, { color: colors.foreground, marginTop: 16 }]}>Recent Activity</Text>
+        <GlassCard elevated style={styles.activityFeedCard}>
+          {RECENT_ACTIVITIES.map((act, index) => (
+            <TouchableOpacity
+              key={act.id}
+              activeOpacity={0.7}
+              onPress={() => setSelectedActivity(act)}
+              style={[styles.activityItem, index < RECENT_ACTIVITIES.length - 1 && { borderBottomWidth: 1, borderBottomColor: colors.border }]}
+            >
+              <View style={[styles.actIconBox, { backgroundColor: colors.elevated }, act.isError && styles.errorIconBox, act.isEvent && styles.eventIconBox]}>
+                <Ionicons
+                  name={act.icon}
+                  size={18}
+                  color={act.isError ? colors.danger : act.isEvent ? colors.amber : colors.foreground}
+                />
+              </View>
+              <View style={{ flex: 1, marginLeft: 12 }}>
+                <Text style={[styles.actUserText, { color: colors.foreground }]}>
+                  <Text style={{ fontWeight: "700" }}>{act.user}</Text> {act.action}
+                </Text>
+                <Text style={[styles.actTimeText, { color: colors.subtle }]}>{act.time}</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={16} color={colors.subtle} />
+            </TouchableOpacity>
+          ))}
+        </GlassCard>
+
+        {/* WORKSPACE ISSUES CHECKLIST */}
+        <View style={styles.issuesHeaderRow}>
+          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Workspace Issues</Text>
+          <View style={styles.tabsRow}>
             {["all", "pending", "resolved"].map((tab) => (
               <TouchableOpacity
                 key={tab}
-                activeOpacity={0.8}
-                onPress={() => setIssueFilter(tab)}
-                style={[styles.filterTab, issueFilter === tab && styles.filterTabActive]}
+                activeOpacity={0.7}
+                onPress={() => setActiveTab(tab)}
+                style={[styles.tabChip, { backgroundColor: colors.elevated }, activeTab === tab && { backgroundColor: colors.primary }]}
               >
-                <Text
-                  style={[
-                    styles.filterTabText,
-                    issueFilter === tab && styles.filterTabTextActive,
-                  ]}
-                >
-                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                <Text style={[styles.tabText, { color: colors.muted }, activeTab === tab && { color: isDarkMode ? "#000" : "#FFF" }]}>
+                  {tab.toUpperCase()}
                 </Text>
               </TouchableOpacity>
             ))}
           </View>
         </View>
 
-        {filteredIssues.length === 0 ? (
-          <GlassCard style={styles.emptyCard}>
-            <Ionicons name="sparkles-outline" size={24} color={theme.colors.muted} />
-            <Text style={styles.emptyText}>No issues match this filter.</Text>
-          </GlassCard>
-        ) : (
-          filteredIssues.map((issue) => (
-            <IssueItem key={issue.id} issue={issue} onToggle={handleToggleIssue} />
-          ))
-        )}
+        {filteredIssues.map((issue) => (
+          <IssueItem key={issue.id} issue={issue} onToggle={handleToggleIssue} />
+        ))}
       </ScrollView>
 
-      {/* HEATMAP DAY DETAIL MODAL */}
-      <Modal visible={!!selectedDay} transparent animationType="fade">
+      {/* RECENT ACTIVITY DETAIL MODAL */}
+      <Modal visible={!!selectedActivity} transparent animationType="slide">
         <View style={styles.modalOverlay}>
-          <GlassCard elevated style={styles.detailModalCard}>
+          <GlassCard elevated style={[styles.activityModalCard, { backgroundColor: colors.card }]}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Activity: {selectedDay?.date}</Text>
-              <TouchableOpacity onPress={() => setSelectedDay(null)}>
-                <Ionicons name="close" size={22} color={theme.colors.muted} />
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.actModalBadge, { color: colors.amber }]}>{selectedActivity?.time}</Text>
+                <Text style={[styles.actModalTitle, { color: colors.foreground }]}>{selectedActivity?.user}</Text>
+              </View>
+              <TouchableOpacity onPress={() => setSelectedActivity(null)}>
+                <Ionicons name="close-circle" size={26} color={colors.muted} />
               </TouchableOpacity>
             </View>
 
-            <View style={styles.activityLogBox}>
-              <Ionicons name="git-commit" size={20} color={theme.colors.primary} />
-              <Text style={styles.logText}>
-                {selectedDay?.count || 0} commits & PR reviews logged on this day.
-              </Text>
-            </View>
+            <Text style={[styles.actModalActionText, { color: colors.muted }]}>{selectedActivity?.action}</Text>
 
-            <Text style={styles.logSubText}>
-              All contributions are synced with your MongoDB workspace account.
-            </Text>
+            <View style={[styles.divider, { backgroundColor: colors.border }]} />
 
-            <CustomButton
-              title="Close"
-              variant="outline"
-              size="md"
-              style={{ marginTop: 16 }}
-              onPress={() => setSelectedDay(null)}
-            />
-          </GlassCard>
-        </View>
-      </Modal>
+            {selectedActivity?.commits ? (
+              <View>
+                <Text style={[styles.subHeading, { color: colors.foreground }]}>Repo: {selectedActivity.repo}</Text>
+                <Text style={[styles.branchBadge, { color: colors.amber }]}>Branch: {selectedActivity.branch} ({selectedActivity.stats})</Text>
+                <Text style={[styles.subHeading, { color: colors.foreground, marginTop: 12 }]}>Commit History:</Text>
+                {selectedActivity.commits.map((c, idx) => (
+                  <View key={idx} style={styles.commitRow}>
+                    <Ionicons name="git-commit" size={16} color={colors.amber} />
+                    <Text style={[styles.commitText, { color: colors.foreground }]}>{c}</Text>
+                  </View>
+                ))}
+              </View>
+            ) : null}
 
-      {/* QUICK ADD ISSUE MODAL */}
-      <Modal visible={showAddIssueModal} transparent animationType="slide">
-        <View style={styles.modalOverlay}>
-          <GlassCard elevated style={styles.detailModalCard}>
-            <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Add New Workspace Issue</Text>
-              <TouchableOpacity onPress={() => setShowAddIssueModal(false)}>
-                <Ionicons name="close" size={22} color={theme.colors.muted} />
-              </TouchableOpacity>
-            </View>
+            {selectedActivity?.issueId ? (
+              <View>
+                <Text style={[styles.subHeading, { color: colors.foreground }]}>Issue {selectedActivity.issueId} • {selectedActivity.repo}</Text>
+                <View style={styles.priorityBadge}>
+                  <Text style={[styles.priorityText, { color: colors.danger }]}>Priority: {selectedActivity.priority}</Text>
+                </View>
+                <Text style={[styles.issueDescText, { color: colors.muted }]}>{selectedActivity.description}</Text>
+              </View>
+            ) : null}
 
-            <TextInput
-              style={styles.modalInput}
-              placeholder="Issue title (e.g. Add MongoDB index)..."
-              placeholderTextColor={theme.colors.subtle}
-              value={newIssueTitle}
-              onChangeText={setNewIssueTitle}
-            />
-
-            <Text style={styles.prioLabel}>Priority Level</Text>
-            <View style={styles.prioRow}>
-              {["High", "Medium", "Low"].map((prio) => (
-                <TouchableOpacity
-                  key={prio}
-                  activeOpacity={0.8}
-                  onPress={() => setNewIssuePriority(prio)}
-                  style={[
-                    styles.prioBadge,
-                    newIssuePriority === prio && styles.prioBadgeActive,
-                  ]}
-                >
-                  <Text
-                    style={[
-                      styles.prioText,
-                      newIssuePriority === prio && styles.prioTextActive,
-                    ]}
-                  >
-                    {prio}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
+            {selectedActivity?.eventTitle ? (
+              <View>
+                <Text style={[styles.eventTitleText, { color: colors.foreground }]}>{selectedActivity.eventTitle}</Text>
+                <Text style={[styles.eventLocText, { color: colors.muted }]}>📍 {selectedActivity.location}</Text>
+                <Text style={[styles.eventAttendeesText, { color: colors.amber }]}>👥 {selectedActivity.attendees} Developers Registered</Text>
+              </View>
+            ) : null}
 
             <CustomButton
-              title="Create Issue"
+              title="Close Details"
               variant="primary"
               size="lg"
               style={{ marginTop: 20 }}
-              onPress={handleAddIssue}
+              onPress={() => setSelectedActivity(null)}
             />
           </GlassCard>
         </View>
@@ -326,257 +342,74 @@ export default function DashboardScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: theme.colors.background,
-  },
-  container: {
-    padding: theme.spacing(2.5),
-    paddingBottom: theme.spacing(6),
-  },
-  headerRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: theme.spacing(2.5),
-    marginTop: theme.spacing(1),
-  },
-  greeting: {
-    fontSize: 13,
-    color: theme.colors.muted,
-    marginBottom: 2,
-  },
-  dashboardTitle: {
-    ...theme.font.h1,
-    fontSize: 24,
-  },
-  addIssueHeaderBtn: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: theme.colors.primary,
-    paddingHorizontal: theme.spacing(1.5),
-    paddingVertical: theme.spacing(0.8),
-    borderRadius: theme.radius.pill,
-    ...theme.shadows.glow,
-  },
-  addIssueHeaderText: {
-    fontSize: 12,
-    fontWeight: "700",
-    color: "#000000",
-    marginLeft: 4,
-  },
-  statsGridRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: theme.spacing(1.5),
-  },
-  statCard: {
-    flex: 1,
-    marginHorizontal: 4,
-    padding: theme.spacing(1.8),
-    alignItems: "flex-start",
-  },
-  statNumber: {
-    fontSize: 22,
-    fontWeight: "800",
-    color: theme.colors.foreground,
-    marginVertical: theme.spacing(0.5),
-  },
-  statLabel: {
-    fontSize: 11,
-    color: theme.colors.muted,
-  },
-  streakCard: {
-    padding: theme.spacing(2.5),
-    marginBottom: theme.spacing(3),
-    marginTop: theme.spacing(1),
-  },
-  streakHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    marginBottom: theme.spacing(1.5),
-  },
-  streakTitleRow: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  fireEmoji: {
-    fontSize: 24,
-    marginRight: 10,
-  },
-  streakTitle: {
-    ...theme.font.h3,
-    fontSize: 16,
-  },
-  streakSub: {
-    fontSize: 11,
-    color: theme.colors.muted,
-    marginTop: 2,
-  },
-  levelLegendRow: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  legendText: {
-    fontSize: 9,
-    color: theme.colors.subtle,
-    marginHorizontal: 3,
-  },
-  legendBox: {
-    width: 8,
-    height: 8,
-    borderRadius: 2,
-    marginHorizontal: 1.5,
-  },
-  clickHint: {
-    fontSize: 10,
-    color: theme.colors.subtle,
-    marginBottom: 8,
-  },
-  heatmapGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-  },
-  heatmapCell: {
-    width: "12%",
-    height: 24,
-    borderRadius: 4,
-    marginVertical: 4,
-  },
-  level0: {
-    backgroundColor: theme.colors.elevated,
-  },
-  level1: {
-    backgroundColor: "rgba(16, 185, 129, 0.3)",
-  },
-  level2: {
-    backgroundColor: "rgba(16, 185, 129, 0.65)",
-  },
-  level3: {
-    backgroundColor: theme.colors.primary,
-  },
-  sectionHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: theme.spacing(1.5),
-    marginTop: theme.spacing(1),
-  },
-  sectionTitle: {
-    ...theme.font.h2,
-    fontSize: 18,
-  },
-  filterTabsRow: {
-    flexDirection: "row",
-    backgroundColor: theme.colors.card,
-    borderRadius: theme.radius.pill,
-    padding: 2,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  filterTab: {
-    paddingHorizontal: theme.spacing(1.2),
-    paddingVertical: theme.spacing(0.5),
-    borderRadius: theme.radius.pill,
-  },
-  filterTabActive: {
-    backgroundColor: theme.colors.elevated,
-  },
-  filterTabText: {
-    fontSize: 11,
-    color: theme.colors.muted,
-  },
-  filterTabTextActive: {
-    color: theme.colors.primary,
-    fontWeight: "700",
-  },
-  emptyCard: {
-    padding: theme.spacing(3),
-    alignItems: "center",
-  },
-  emptyText: {
-    fontSize: 13,
-    color: theme.colors.muted,
-    marginTop: 8,
-  },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.75)",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: theme.spacing(2.5),
-  },
-  detailModalCard: {
-    width: "100%",
-    padding: theme.spacing(2.5),
-  },
-  modalHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: theme.spacing(2),
-  },
-  modalTitle: {
-    fontSize: 16,
-    fontWeight: "700",
-    color: theme.colors.foreground,
-  },
-  activityLogBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: theme.colors.elevated,
-    padding: theme.spacing(1.5),
-    borderRadius: theme.radius.md,
-    marginBottom: 8,
-  },
-  logText: {
-    fontSize: 13,
-    color: theme.colors.foreground,
-    marginLeft: 10,
-    flex: 1,
-  },
-  logSubText: {
-    fontSize: 11,
-    color: theme.colors.subtle,
-  },
-  modalInput: {
-    backgroundColor: theme.colors.elevated,
-    borderRadius: theme.radius.md,
-    paddingHorizontal: theme.spacing(1.5),
-    paddingVertical: theme.spacing(1.2),
-    color: theme.colors.foreground,
-    fontSize: 14,
-    marginBottom: 16,
-  },
-  prioLabel: {
-    fontSize: 12,
-    color: theme.colors.muted,
-    marginBottom: 8,
-  },
-  prioRow: {
-    flexDirection: "row",
-  },
-  prioBadge: {
-    flex: 1,
-    paddingVertical: theme.spacing(0.8),
-    alignItems: "center",
-    borderRadius: theme.radius.md,
-    backgroundColor: theme.colors.elevated,
-    marginRight: 6,
-  },
-  prioBadgeActive: {
-    backgroundColor: "rgba(16, 185, 129, 0.2)",
-    borderWidth: 1,
-    borderColor: theme.colors.primary,
-  },
-  prioText: {
-    fontSize: 12,
-    color: theme.colors.muted,
-  },
-  prioTextActive: {
-    color: theme.colors.primary,
-    fontWeight: "700",
-  },
+  safeArea: { flex: 1 },
+  container: { padding: 20, paddingBottom: 48 },
+  brandRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 8, marginBottom: 16 },
+  brandTitle: { fontSize: 22, fontWeight: "900", letterSpacing: -0.5 },
+  liveSyncPill: { flexDirection: "row", alignItems: "center", backgroundColor: "rgba(16, 185, 129, 0.12)", paddingHorizontal: 10, paddingVertical: 4, borderRadius: 9999, borderWidth: 1, borderColor: "rgba(16, 185, 129, 0.3)" },
+  liveSyncDot: { width: 6, height: 6, borderRadius: 3, marginRight: 6 },
+  liveSyncText: { fontSize: 10, fontWeight: "700" },
+  toastCard: { flexDirection: "row", alignItems: "center", padding: 12, marginBottom: 16, backgroundColor: "rgba(245, 158, 11, 0.12)", borderColor: "rgba(245, 158, 11, 0.3)" },
+  toastText: { fontSize: 13, fontWeight: "700", marginLeft: 8 },
+  heroSection: { marginBottom: 20 },
+  dashboardBadge: { fontSize: 11, fontWeight: "700", letterSpacing: 1.5, marginBottom: 4 },
+  heroTitle: { fontSize: 26, fontWeight: "800", letterSpacing: -0.5, marginBottom: 4 },
+  heroSub: { fontSize: 13, lineHeight: 18 },
+  sectionHeaderRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 12 },
+  sectionTitle: { fontSize: 18, fontWeight: "800" },
+  viewAllText: { fontSize: 12, fontWeight: "600" },
+  horizontalScroll: { marginLeft: -20, paddingLeft: 20, marginBottom: 20 },
+  activeProjectCard: { width: 250, marginRight: 12, padding: 18 },
+  cardHeaderRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 12 },
+  iconBox: { width: 36, height: 36, borderRadius: 10, alignItems: "center", justifyContent: "center" },
+  tagBadge: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: 4 },
+  tagBadgeText: { fontSize: 9, fontWeight: "700", textTransform: "uppercase" },
+  projectName: { fontSize: 16, fontWeight: "800", marginBottom: 2 },
+  projectSubtitle: { fontSize: 12, marginBottom: 14 },
+  progressBox: { marginTop: 4 },
+  progressLabelRow: { flexDirection: "row", justifyContent: "space-between", marginBottom: 4 },
+  progressLabel: { fontSize: 11 },
+  progressVal: { fontSize: 11, fontWeight: "800" },
+  progressTrack: { height: 6, borderRadius: 3, overflow: "hidden" },
+  progressFill: { height: "100%", borderRadius: 3 },
+  pendingRow: { flexDirection: "row", alignItems: "center", marginTop: 4 },
+  pendingText: { fontSize: 12, fontWeight: "600", marginLeft: 6 },
+  metricsRow: { flexDirection: "row", justifyContent: "space-between", marginBottom: 20 },
+  metricCard: { flex: 1, marginHorizontal: 3, padding: 12, alignItems: "center" },
+  metricNum: { fontSize: 20, fontWeight: "800" },
+  metricLabel: { fontSize: 10, marginTop: 2, textAlign: "center" },
+  streakCard: { padding: 16, marginBottom: 20 },
+  streakHeader: { marginBottom: 12 },
+  streakTitleRow: { flexDirection: "row", alignItems: "center" },
+  streakCountText: { fontSize: 18, fontWeight: "800", marginLeft: 6 },
+  streakSub: { fontSize: 11, marginTop: 2 },
+  heatmapRow: { flexDirection: "row", justifyContent: "space-between" },
+  cell: { width: 16, height: 16, borderRadius: 4 },
+  activityFeedCard: { padding: 0, marginBottom: 20, overflow: "hidden" },
+  activityItem: { flexDirection: "row", alignItems: "center", padding: 14 },
+  actIconBox: { width: 36, height: 36, borderRadius: 18, alignItems: "center", justifyContent: "center" },
+  errorIconBox: { backgroundColor: "rgba(220, 38, 38, 0.12)" },
+  eventIconBox: { backgroundColor: "rgba(245, 158, 11, 0.12)" },
+  actUserText: { fontSize: 13, lineHeight: 18 },
+  actTimeText: { fontSize: 9, fontWeight: "700", marginTop: 2 },
+  issuesHeaderRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 12 },
+  tabsRow: { flexDirection: "row" },
+  tabChip: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 9999, marginLeft: 4 },
+  tabText: { fontSize: 10, fontWeight: "700" },
+  modalOverlay: { flex: 1, backgroundColor: "rgba(0, 0, 0, 0.8)", justifyContent: "center", alignItems: "center", padding: 20 },
+  activityModalCard: { width: "100%", padding: 20 },
+  actModalBadge: { fontSize: 11, fontWeight: "700", marginBottom: 2 },
+  actModalTitle: { fontSize: 22, fontWeight: "800" },
+  actModalActionText: { fontSize: 14, marginTop: 4 },
+  divider: { height: 1, marginVertical: 14 },
+  subHeading: { fontSize: 14, fontWeight: "700", marginBottom: 6 },
+  branchBadge: { fontSize: 12, fontWeight: "600", marginBottom: 8 },
+  commitRow: { flexDirection: "row", alignItems: "center", marginBottom: 6 },
+  commitText: { fontSize: 12, marginLeft: 8, flex: 1 },
+  priorityBadge: { backgroundColor: "rgba(220, 38, 38, 0.12)", paddingHorizontal: 8, paddingVertical: 2, borderRadius: 4, alignSelf: "flex-start", marginBottom: 8 },
+  priorityText: { fontSize: 10, fontWeight: "700" },
+  issueDescText: { fontSize: 13, lineHeight: 18 },
+  eventTitleText: { fontSize: 16, fontWeight: "800", marginBottom: 6 },
+  eventLocText: { fontSize: 13, marginBottom: 4 },
+  eventAttendeesText: { fontSize: 12, fontWeight: "600" },
 });
