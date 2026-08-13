@@ -1,0 +1,3 @@
+ALTER TABLE public.project_commits
+  ADD COLUMN IF NOT EXISTS path text NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS patch text NOT NULL DEFAULT '';

@@ -1,0 +1,16 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "Nexus API", "version": "1.0.0" },
+  "paths": {
+    "/api/v1/courses": {
+      "get": {
+        "summary": "List courses",
+        "responses": { "200": { "description": "OK" } }
+      },
+      "post": {
+        "summary": "Create a course",
+        "responses": { "201": { "description": "Created" }, "401": { "description": "Unauthorized" } }
+      }
+    }
+  }
+}
