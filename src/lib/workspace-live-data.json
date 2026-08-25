@@ -1,0 +1,57 @@
+{
+  "projects": {
+    "Mobile App Redesign": {
+      "files": [
+        {
+          "path": "package.json",
+          "content": "{\n  \"name\": \"buildverse-demo-workspace\",\n  \"version\": \"1.0.0\",\n  \"private\": true,\n  \"type\": \"module\",\n  \"scripts\": {\n    \"sync:pull\": \"node \\\"../scripts/sync-git-pull.cjs\\\"\",\n    \"sync:commit\": \"node \\\"../scripts/sync-git-commit.cjs\\\"\"\n  }\n}\n"
+        },
+        {
+          "path": "README.md",
+          "content": "# BuildVerse Local Demo Workspace\n\nWelcome to your BuildVerse VS Code local testing workspace!\n\n## How to Pull Latest Project Files:\n```bash\nnpm run sync:pull -- --project=\"Mobile App Redesign\"\n```\n\n## How to Push Your Local VS Code Changes:\n```bash\nnpm run sync:commit \"feat: added new features in demo workspace\" -- --project=\"Mobile App Redesign\"\n```\n"
+        },
+        {
+          "path": "s.html",
+          "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>sdfrgsdfg</title>\r\n</head>\r\n<body>\r\n    \r\n</body>\r\n</html>"
+        }
+      ],
+      "commits": [
+        {
+          "hash": "1a0ea89",
+          "author": "sunnyuchadiya",
+          "message": "crown",
+          "timestamp": "Just now",
+          "filesChanged": 3
+        },
+        {
+          "hash": "1a0ea89",
+          "author": "sunnyuchadiya",
+          "message": "feat: another commit test",
+          "timestamp": "Just now",
+          "filesChanged": 3
+        },
+        {
+          "hash": "1a0ea89",
+          "author": "sunnyuchadiya",
+          "message": "your message",
+          "timestamp": "Just now",
+          "filesChanged": 3
+        },
+        {
+          "hash": "1a0ea89",
+          "author": "sunnyuchadiya",
+          "message": "your message",
+          "timestamp": "Just now",
+          "filesChanged": 3
+        },
+        {
+          "hash": "1a0ea89",
+          "author": "sunnyuchadiya",
+          "message": "feat: created myNewDemoFile.js in demo",
+          "timestamp": "Just now",
+          "filesChanged": 3
+        }
+      ]
+    }
+  }
+}

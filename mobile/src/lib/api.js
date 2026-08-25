@@ -1,10 +1,21 @@
 import { Platform } from 'react-native';
+import Constants from 'expo-constants';
 
-export const MONGO_API_BASE_URL = Platform.select({
-  android: 'http://10.0.2.2:5000/api/v1',
-  ios: 'http://localhost:5000/api/v1',
-  default: 'http://localhost:5000/api/v1',
-});
+// DYNAMIC PC IP EXTRACTION FROM EXPO HOST URI FOR PHYSICAL ANDROID PHONES & EMULATORS
+const getBackendIp = () => {
+  try {
+    const hostUri = Constants.expoConfig?.hostUri || Constants.manifest?.debuggerHost || '';
+    if (hostUri) {
+      const ip = hostUri.split(':')[0];
+      if (ip && ip !== 'localhost' && ip !== '127.0.0.1') return ip;
+    }
+  } catch (_e) {}
+  return Platform.OS === 'android' ? '10.0.2.2' : 'localhost';
+};
+
+const pcIp = getBackendIp();
+
+export const MONGO_API_BASE_URL = `http://${pcIp}:5000/api/v1`;
 
 // REGISTERED USERS REGISTRY FOR AUTH VALIDATION
 let registeredUsers = [
@@ -121,7 +132,7 @@ export function logoutUserSession() {
   };
 }
 
-// SAFE FETCH HELPER WITH SILENT NETWORK CATCH
+// SAFE FETCH HELPER WITH SILENT NETWORK CATCH & TIMEOUT
 export async function safeFetch(url, options = {}) {
   try {
     const controller = new AbortController();
@@ -133,11 +144,11 @@ export async function safeFetch(url, options = {}) {
     });
     clearTimeout(timeoutId);
 
-    if (res.ok) {
+    if (res && res.ok) {
       return await res.json();
     }
   } catch (_err) {
-    // Silent catch
+    // Silent catch so offline mode works seamlessly
   }
   return null;
 }

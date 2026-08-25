@@ -151,15 +151,46 @@
 }
 
 @layer base {
-  * {
+  *, ::before, ::after {
     border-color: var(--color-border);
+    -webkit-tap-highlight-color: transparent;
   }
 
-  body {
+  /* ELIMINATE BLINKING TEXT CARET CURSOR ON CLICKING NON-EDITABLE ELEMENTS */
+  *:not(input):not(textarea):not([contenteditable="true"]) {
+    caret-color: transparent !important;
+  }
+
+  input, textarea, [contenteditable="true"] {
+    caret-color: auto !important;
+  }
+
+  /* REMOVE BROWSER DEFAULT HARSH FOCUS OUTLINE RINGS ON CLICK */
+  *:focus {
+    outline: none !important;
+  }
+
+  *:focus-visible {
+    outline: none !important;
+    box-shadow: 0 0 0 2px color-mix(in oklab, var(--primary) 40%, transparent) !important;
+  }
+
+  button, a, input, select, textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html, body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  input, textarea, [contenteditable="true"], pre, code, p, span, h1, h2, h3, h4, h5, h6 {
+    user-select: text;
+    -webkit-user-select: text;
   }
 
   ::selection {
