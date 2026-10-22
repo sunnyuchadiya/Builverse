@@ -1,4 +1,7 @@
-const API_BASE = "http://localhost:5000/api/v1";
+const API_BASE =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_BACKEND_URL)
+    ? `${import.meta.env.VITE_BACKEND_URL.replace(/\/+$/, "")}/api/v1`
+    : "http://localhost:5000/api/v1";
 
 const DEMO_PROJECTS = [
   {

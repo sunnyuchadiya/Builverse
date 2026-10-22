@@ -6,4 +6,7 @@ export default defineConfig({
     // Redirect TanStack Start's bundled server entry to src/server.js
     server: { entry: "server.js" },
   },
+  nitro: {
+    preset: process.env.NITRO_PRESET || (process.env.VERCEL ? "vercel" : undefined),
+  },
 });

@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { UserCheck, ShieldAlert, GraduationCap, Users } from "lucide-react";
 
-const API_BASE = "http://localhost:5000/api/v1";
+const API_BASE =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_BACKEND_URL)
+    ? `${import.meta.env.VITE_BACKEND_URL.replace(/\/+$/, "")}/api/v1`
+    : "http://localhost:5000/api/v1";
 
 export function AuthForm({ mode }) {
   const navigate = useNavigate();
