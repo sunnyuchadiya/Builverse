@@ -41,11 +41,20 @@ async function bootstrap() {
   try { await connectKafka(); } catch (e) { logger.warn("Kafka connection skipped"); }
   initSockets(server);
   try { startJobs(); } catch (e) { logger.warn("Background jobs skipped"); }
-  server.listen(env.PORT, () => logger.info(`BuildVerse API listening on :${env.PORT}`));
+  if (!process.env.VERCEL) {
+    server.listen(env.PORT, () => logger.info(`BuildVerse API listening on :${env.PORT}`));
+  }
 }
 
-bootstrap().catch((err) => {
-  logger.error("Failed to start server", err);
-});
+if (!process.env.VERCEL) {
+  bootstrap().catch((err) => {
+    logger.error("Failed to start server", err);
+  });
+} else {
+  // On Vercel serverless environment, connect database lazily
+  connectDatabase().catch((err) => {
+    logger.warn("Vercel MongoDB connect notice: " + err.message);
+  });
+}
 
 module.exports = app;
